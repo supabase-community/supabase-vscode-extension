@@ -1,0 +1,130 @@
+{
+  "name": "vscode-supabase-cli",
+  "displayName": "Supabase CLI for Visual Studio Code",
+  "description": "Integrate your local Supabase instance right into the editor.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "main": "./out/extension.js",
+  "scripts": {
+    "install:all": "yarn install && cd webview-ui && yarn install",
+    "start:webview": "cd webview-ui && yarn run start",
+    "build:webview": "cd webview-ui && yarn run build",
+    "vscode:prepublish": "yarn run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "yarn run compile && yarn run lint",
+    "lint": "eslint src --ext ts"
+  },
+  "dependencies": {
+    "await-to-js": "^3.0.0",
+    "http": "^0.0.1-security",
+    "lodash": "^4.17.21",
+    "module-alias": "^2.2.3",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.3",
+    "@types/lodash": "^4.14.199",
+    "@types/node": "^12.11.7",
+    "@types/vscode": "^1.46.0",
+    "@typescript-eslint/eslint-plugin": "^4.14.1",
+    "@typescript-eslint/parser": "^4.14.1",
+    "axios": "^1.5.0",
+    "eslint": "^7.19.0",
+    "glob": "^7.1.6",
+    "prettier": "^2.2.1",
+    "typescript": "^4.1.3",
+    "vscode-test": "^1.5.0"
+  },
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "vscode-supabase-cli",
+          "title": "Supabase CLI",
+          "icon": "./src/assets/logo.svg"
+        }
+      ]
+    },
+    "views": {
+      "vscode-supabase-cli": [
+        {
+          "id": "connectSupabase",
+          "name": "Connect ",
+          "contextualTitle": "Connect your Supabase instance",
+          "type": "tree",
+          "when": "!workspaceState.isConnected"
+        },
+        {
+          "id": "database",
+          "name": "Database",
+          "contextualTitle": "Local database",
+          "visibility": "hidden",
+          "when": "workspaceState.isConnected"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "connectSupabase.linkApiPort",
+        "title": "Link API url"
+      },
+      {
+        "command": "databaseProvider.refresh",
+        "title": "Refresh",
+        "icon": {
+          "light": "./src/assets/light/refresh.svg",
+          "dark": "./src/assets/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "databaseProvider.disconnect",
+        "title": "Disconnect",
+        "icon": {
+          "light": "./src/assets/light/sign-out.svg",
+          "dark": "./src/assets/dark/sign-out.svg"
+        }
+      },
+      {
+        "command": "databaseProvider.createMigration",
+        "title": "Create new migration",
+        "icon": {
+          "light": "./src/assets/light/add.svg",
+          "dark": "./src/assets/dark/add.svg"
+        }
+      }
+    ],
+    "viewsWelcome": [
+      {
+        "view": "connectSupabase",
+        "contents": "To continue connect your Supabase instance by entering the Studio API port. \n[Connect](command:connectSupabase.linkApiPort)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "databaseProvider.refresh",
+          "when": "view == database && workspaceState.isConnected",
+          "group": "navigation@1"
+        },
+        {
+          "command": "databaseProvider.disconnect",
+          "when": "view == database && workspaceState.isConnected",
+          "group": "navigation@2"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "databaseProvider.createMigration",
+          "when": "view == database && viewItem == database.migrations",
+          "group": "inline"
+        }
+      ]
+    }
+  },
+  "_moduleAliases": {
+    "@": "./out"
+  }
+}
