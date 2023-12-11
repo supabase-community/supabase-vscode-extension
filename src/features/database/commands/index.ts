@@ -2,30 +2,29 @@ import * as vscode from 'vscode';
 import to from 'await-to-js';
 import { WorkspaceStorage, WorkspaceStorageKeys } from '@/utils/workspace-storage';
 import axios from 'axios';
+import { transformString } from '@/utils/transform-string';
+import { SupabaseApi } from '@/features/database/classes/supabase-api';
+import { execShell } from '@/utils/exec-shell';
+import * as cp from 'child_process';
 
-export async function createNewMigration(workspaceStorage: WorkspaceStorage) {
+export async function createNewMigration(supabase: SupabaseApi) {
   const name = await vscode.window.showInputBox({
-    placeHolder: 'For example: schema_test'
+    placeHolder: 'For example: migration_test'
   });
-
-  // const sanitize = transformString(name);
-
   if (name) {
-    const baseUrl = `http://localhost:${+port}`;
-    const checkStatus = baseUrl + '/api/projects/default';
-    const [error] = await to(axios.get(checkStatus));
+    const sanitize = transformString(name);
+    console.log(sanitize);
+    const asdf = await execShell('pwd');
+    console.log('asdf', asdf);
 
-    if (error) {
-      vscode.window.showErrorMessage(
-        `Could not connect to: ${checkStatus}. Make sure your instance is up and running.`
-      );
-      return;
-    }
-    workspaceStorage.set(WorkspaceStorageKeys.BASE_URL, baseUrl);
-    vscode.commands.executeCommand('setContext', 'workspaceState.isConnected', true);
-    return;
-  } else {
-    vscode.window.showErrorMessage('Invalid migration name');
-    return;
+    // console.log('vscode', vscode.workspace.workspaceFolders[0].uri.path);
+
+    cp.exec('ls', (err, stdout, stderr) => {
+      console.log('stdout: ' + stdout);
+      console.log('stderr: ' + stderr);
+      if (err) {
+        console.log('error: ' + err);
+      }
+    });
   }
 }

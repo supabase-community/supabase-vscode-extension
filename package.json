@@ -88,8 +88,16 @@
         }
       },
       {
-        "command": "databaseProvider.createMigration",
+        "command": "databaseProvider.create-migration",
         "title": "Create new migration",
+        "icon": {
+          "light": "./src/assets/light/add.svg",
+          "dark": "./src/assets/dark/add.svg"
+        }
+      },
+      {
+        "command": "databaseProvider.openTable",
+        "title": "Open table",
         "icon": {
           "light": "./src/assets/light/add.svg",
           "dark": "./src/assets/dark/add.svg"
@@ -117,9 +125,13 @@
       ],
       "view/item/context": [
         {
-          "command": "databaseProvider.createMigration",
+          "command": "databaseProvider.create-migration",
           "when": "view == database && viewItem == database.migrations",
           "group": "inline"
+        },
+        {
+          "command": "databaseProvider.openTable",
+          "when": "view == database && viewItem == database.tables"
         }
       ]
     }

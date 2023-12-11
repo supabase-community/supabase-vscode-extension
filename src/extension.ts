@@ -6,6 +6,7 @@ import { disconnect } from '@/features/connect/commands/disconnect';
 import { ConnectProvider } from '@/features/connect/provider/connect-provider';
 import { DatabaseProvider } from '@/features/database/provider/database-provider';
 import { SupabaseApi } from '@/features/database/classes/supabase-api';
+import { createNewMigration } from '@/features/database/commands';
 
 export function activate(context: vscode.ExtensionContext) {
   const workspaceStorage = new WorkspaceStorage(context);
@@ -27,6 +28,7 @@ export function activate(context: vscode.ExtensionContext) {
   });
   vscode.commands.registerCommand('databaseProvider.refresh', () => databaseProvider.refresh());
   vscode.commands.registerCommand('databaseProvider.disconnect', async () => disconnect(workspaceStorage));
+  vscode.commands.registerCommand('databaseProvider.create-migration', async () => createNewMigration(supabase));
 
   context.subscriptions.push(connectSupabaseView, databaseView);
 }

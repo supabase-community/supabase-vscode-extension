@@ -18,21 +18,23 @@ Supercharge your productivity by integrating your local Supabase instance right 
 
 ## Usage
 
-> Disclaimer: This is still a work in progress extension. Might have some broken edge cases.
+> Disclaimer: This is still a work in progress extension. Might have some broken edge cases. Not ready for production use.
 
 ...
 
 ## Development
 
 - `yarn run install:all`
-  - Install package dependencies for both the extension and React webview source code.
-- `yarn run start:webview`
-  - Runs the React webview source code in development mode. Open http://localhost:3000 to view it in the browser.
+  - install package dependencies for both the extension and react webview source code.
 - `yarn run build:webview`
-  - Build React webview source code. Must be executed before compiling or running the extension.
+  - build react webview source code. Must be executed before compiling or running the extension.
+- `npx supabase start`
+  - starts the [supabase local development stack](https://supabase.com/docs/reference/cli/supabase-start)
+- `yarn run start:webview`
+  - runs the react webview source code in development mode.
 - `yarn run compile`
-  - Compile VS Code extension
-- Press `F5`
+  - compile vs code extension
+- press `F5`
   - to open a new window with the extension loaded
 
 ## Contributing

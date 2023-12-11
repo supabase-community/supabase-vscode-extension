@@ -13,9 +13,13 @@ enum Endpoint {
 }
 
 export class SupabaseApi {
-  private baseUrl;
+  private baseUrl: string | undefined;
   constructor(private readonly workspaceStorage: WorkspaceStorage) {
     this.baseUrl = this.workspaceStorage.get(WorkspaceStorageKeys.BASE_URL);
+  }
+
+  getBaseUrl(): string | undefined {
+    return this.baseUrl;
   }
 
   async getTables(): Promise<Table[]> {
