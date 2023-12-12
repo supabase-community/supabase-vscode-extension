@@ -29,6 +29,13 @@ export enum TablesElement {
   PRIVATE = 'database.tables.private'
 }
 
+export enum CliElements {
+  GEN_TYPES = 'database.cli.gen_types',
+  DB_RESET = 'database.cli.db_reset',
+  DB_PULL = 'database.cli.db_pull',
+  DB_PUSH = 'database.cli.db_push'
+}
+
 //#region Tables
 export interface Table {
   id: number;

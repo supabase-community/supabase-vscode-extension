@@ -68,7 +68,7 @@
     },
     "commands": [
       {
-        "command": "connectSupabase.linkApiPort",
+        "command": "connectSupabase.link_api_port",
         "title": "Link API url"
       },
       {
@@ -88,7 +88,7 @@
         }
       },
       {
-        "command": "databaseProvider.create-migration",
+        "command": "databaseProvider.create_migration",
         "title": "Create new migration",
         "icon": {
           "light": "./src/assets/light/add.svg",
@@ -96,18 +96,26 @@
         }
       },
       {
-        "command": "databaseProvider.openTable",
+        "command": "databaseProvider.open_table",
         "title": "Open table",
         "icon": {
           "light": "./src/assets/light/add.svg",
           "dark": "./src/assets/dark/add.svg"
+        }
+      },
+      {
+        "command": "databaseProvider.db_reset",
+        "title": "Run supabase db reset command",
+        "icon": {
+          "light": "./src/assets/light/run.svg",
+          "dark": "./src/assets/dark/run.svg"
         }
       }
     ],
     "viewsWelcome": [
       {
         "view": "connectSupabase",
-        "contents": "To continue connect your Supabase instance by entering the Studio API port. \n[Connect](command:connectSupabase.linkApiPort)"
+        "contents": "To continue connect your Supabase instance by entering the Studio API port. \n[Connect](command:connectSupabase.link_api_port)"
       }
     ],
     "menus": {
@@ -125,13 +133,19 @@
       ],
       "view/item/context": [
         {
-          "command": "databaseProvider.create-migration",
+          "command": "databaseProvider.create_migration",
           "when": "view == database && viewItem == database.migrations",
           "group": "inline"
         },
         {
-          "command": "databaseProvider.openTable",
-          "when": "view == database && viewItem == database.tables"
+          "command": "databaseProvider.open_table",
+          "when": "view == database && viewItem == database.tables",
+          "group": "inline"
+        },
+        {
+          "command": "databaseProvider.db_reset",
+          "when": "view == database && viewItem == database.cli.db_reset",
+          "group": "inline"
         }
       ]
     }

@@ -6,7 +6,7 @@ import { disconnect } from '@/features/connect/commands/disconnect';
 import { ConnectProvider } from '@/features/connect/provider/connect-provider';
 import { DatabaseProvider } from '@/features/database/provider/database-provider';
 import { SupabaseApi } from '@/features/database/classes/supabase-api';
-import { createNewMigration } from '@/features/database/commands';
+import cmd from '@/features/database/commands';
 
 export function activate(context: vscode.ExtensionContext) {
   const workspaceStorage = new WorkspaceStorage(context);
@@ -22,13 +22,14 @@ export function activate(context: vscode.ExtensionContext) {
     treeDataProvider: databaseProvider
   });
 
-  vscode.commands.registerCommand('connectSupabase.linkApiPort', async () => {
+  vscode.commands.registerCommand('connectSupabase.link_api_port', async () => {
     linkApiPort(workspaceStorage);
     databaseProvider.refresh();
   });
   vscode.commands.registerCommand('databaseProvider.refresh', () => databaseProvider.refresh());
   vscode.commands.registerCommand('databaseProvider.disconnect', async () => disconnect(workspaceStorage));
-  vscode.commands.registerCommand('databaseProvider.create-migration', async () => createNewMigration());
+  vscode.commands.registerCommand('databaseProvider.create_migration', async () => cmd.createNewMigration());
+  vscode.commands.registerCommand('databaseProvider.db_reset', async () => cmd.dbReset());
 
   context.subscriptions.push(connectSupabaseView, databaseView);
 }

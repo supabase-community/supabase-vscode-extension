@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { DatabaseElement, TreeElement } from '@/features/database/types/index.ts';
+import { CliElements, DatabaseElement, TreeElement } from '@/features/database/types/index.ts';
 
 export class TreeItem extends vscode.TreeItem {
   constructor(props: {
@@ -44,7 +44,46 @@ export const cli: TreeElement = {
   iconPath: {
     light: './src/assets/light/terminal.svg',
     dark: './src/assets/dark/terminal.svg'
-  }
+  },
+  children: [
+    {
+      id: CliElements.GEN_TYPES,
+      label: 'Generate types',
+      collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
+      iconPath: {
+        light: './src/assets/light/terminal-2.svg',
+        dark: './src/assets/dark/terminal-2.svg'
+      }
+    },
+    {
+      id: CliElements.DB_RESET,
+      label: 'DB Reset',
+      contextValue: CliElements.DB_RESET,
+      collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
+      iconPath: {
+        light: './src/assets/light/terminal-2.svg',
+        dark: './src/assets/dark/terminal-2.svg'
+      }
+    },
+    {
+      id: CliElements.DB_PULL,
+      label: 'DB Pull',
+      collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
+      iconPath: {
+        light: './src/assets/light/terminal-2.svg',
+        dark: './src/assets/dark/terminal-2.svg'
+      }
+    },
+    {
+      id: CliElements.DB_PUSH,
+      label: 'DB Push',
+      collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
+      iconPath: {
+        light: './src/assets/light/terminal-2.svg',
+        dark: './src/assets/dark/terminal-2.svg'
+      }
+    }
+  ]
 };
 
 export const database: TreeElement = {
@@ -113,13 +152,3 @@ export const database: TreeElement = {
     }
   ]
 };
-
-// export const migrations: TreeElement = {
-//   id: 'database.migration',
-//   label: 'Migration',
-//   collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
-//   iconPath: {
-//     light: './src/assets/light/sign-out.svg',
-//     dark: './src/assets/dark/sign-out.svg'
-//   }
-// };
