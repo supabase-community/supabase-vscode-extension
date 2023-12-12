@@ -76,7 +76,7 @@ export const database: TreeElement = {
     },
     {
       id: DatabaseElement.MIGRATIONS,
-      label: 'Migration',
+      label: 'Remote migrations',
       contextValue: DatabaseElement.MIGRATIONS,
       collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
       iconPath: {

@@ -28,7 +28,7 @@ export function activate(context: vscode.ExtensionContext) {
   });
   vscode.commands.registerCommand('databaseProvider.refresh', () => databaseProvider.refresh());
   vscode.commands.registerCommand('databaseProvider.disconnect', async () => disconnect(workspaceStorage));
-  vscode.commands.registerCommand('databaseProvider.create-migration', async () => createNewMigration(supabase));
+  vscode.commands.registerCommand('databaseProvider.create-migration', async () => createNewMigration());
 
   context.subscriptions.push(connectSupabaseView, databaseView);
 }

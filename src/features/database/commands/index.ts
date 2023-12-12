@@ -1,30 +1,28 @@
 import * as vscode from 'vscode';
 import to from 'await-to-js';
-import { WorkspaceStorage, WorkspaceStorageKeys } from '@/utils/workspace-storage';
-import axios from 'axios';
 import { transformString } from '@/utils/transform-string';
-import { SupabaseApi } from '@/features/database/classes/supabase-api';
-import { execShell } from '@/utils/exec-shell';
-import * as cp from 'child_process';
+import { exec, execShell } from '@/utils/exec-shell';
+import * as fs from 'fs';
 
-export async function createNewMigration(supabase: SupabaseApi) {
-  const name = await vscode.window.showInputBox({
+export async function createNewMigration() {
+  const input = await vscode.window.showInputBox({
     placeHolder: 'For example: migration_test'
   });
-  if (name) {
-    const sanitize = transformString(name);
-    console.log(sanitize);
-    const asdf = await execShell('pwd');
-    console.log('asdf', asdf);
+  if (input) {
+    const name = transformString(input);
 
-    // console.log('vscode', vscode.workspace.workspaceFolders[0].uri.path);
+    const path = vscode.workspace?.workspaceFolders ? vscode.workspace?.workspaceFolders[0].uri.path : null;
+    const isValidPath = !!path && !!fs.lstatSync(path).isDirectory();
 
-    cp.exec('ls', (err, stdout, stderr) => {
-      console.log('stdout: ' + stdout);
-      console.log('stderr: ' + stderr);
-      if (err) {
-        console.log('error: ' + err);
+    if (isValidPath === true) {
+      const cmd = `cd ${path} && npx supabase migration new ${name}`;
+
+      const [err, data] = await to(exec(cmd));
+      if (data?.stderr || err) {
+        vscode.window.showErrorMessage(`Cannot create migration: ${data?.stderr} ${err}`);
       }
-    });
+    } else {
+      vscode.window.showErrorMessage(`Cannot create migration: invalid workspace path`);
+    }
   }
 }
