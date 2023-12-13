@@ -1,13 +1,14 @@
-<a href="https://www.figma.com/community/plugin/1254538877056388290" target="_blank">
-  <img src="./src/assets/supabase-vscode.png" alt="preview" width="100%">
-</a>
+<img src="./src/assets/supabase-vscode.png" alt="preview" width="100%" style="border-radius: 8px">
 
 # Supabase CLI for Visual Studio Code
 
 Supercharge your productivity by integrating your local Supabase instance right into the editor.
 
-<a href="https://marketplace.visualstudio.com/items?itemName=anasaraid.vscode.supabase.cli"><strong>Install →</strong></a>
+<a href="https://marketplace.visualstudio.com/vscode">
+<strong>Coming soon →</strong>
+</a>
 
+<br/>
 <br/>
 
 - [Usage](#usage)
@@ -26,13 +27,15 @@ Supercharge your productivity by integrating your local Supabase instance right 
 
 - `yarn run install:all`
   - install package dependencies for both the extension and react webview source code.
-- `yarn run build:webview`
-  - build react webview source code. Must be executed before compiling or running the extension.
+  <!---
+  `yarn run build:webview`
+  build react webview source code. Must be executed before compiling or running the extension.
+  `yarn run start:webview`
+  runs the react webview source code in development mode.
+  --->
 - `npx supabase start`
   - starts the [supabase local development stack](https://supabase.com/docs/reference/cli/supabase-start)
-- `yarn run start:webview`
-  - runs the react webview source code in development mode.
-- `yarn run compile`
+- `yarn run watch`
   - compile vs code extension
 - press `F5`
   - to open a new window with the extension loaded
