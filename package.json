@@ -110,6 +110,22 @@
           "light": "./src/assets/light/run.svg",
           "dark": "./src/assets/dark/run.svg"
         }
+      },
+      {
+        "command": "databaseProvider.db_pull",
+        "title": "Run supabase db pull command",
+        "icon": {
+          "light": "./src/assets/light/run.svg",
+          "dark": "./src/assets/dark/run.svg"
+        }
+      },
+      {
+        "command": "databaseProvider.db_push",
+        "title": "Run supabase db push command",
+        "icon": {
+          "light": "./src/assets/light/run.svg",
+          "dark": "./src/assets/dark/run.svg"
+        }
       }
     ],
     "viewsWelcome": [
@@ -145,6 +161,16 @@
         {
           "command": "databaseProvider.db_reset",
           "when": "view == database && viewItem == database.cli.db_reset",
+          "group": "inline"
+        },
+        {
+          "command": "databaseProvider.db_pull",
+          "when": "view == database && viewItem == database.cli.db_pull",
+          "group": "inline"
+        },
+        {
+          "command": "databaseProvider.db_push",
+          "when": "view == database && viewItem == database.cli.db_push",
           "group": "inline"
         }
       ]

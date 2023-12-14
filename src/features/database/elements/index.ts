@@ -68,6 +68,7 @@ export const cli: TreeElement = {
     {
       id: CliElements.DB_PULL,
       label: 'DB Pull',
+      contextValue: CliElements.DB_PULL,
       collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
       iconPath: {
         light: './src/assets/light/terminal-2.svg',
@@ -77,6 +78,7 @@ export const cli: TreeElement = {
     {
       id: CliElements.DB_PUSH,
       label: 'DB Push',
+      contextValue: CliElements.DB_PUSH,
       collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
       iconPath: {
         light: './src/assets/light/terminal-2.svg',

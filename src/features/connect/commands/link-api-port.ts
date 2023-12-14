@@ -17,7 +17,7 @@ export async function linkApiPort(workspaceStorage: WorkspaceStorage) {
   if (port) {
     const baseUrl = `http://localhost:${+port}`;
     const checkStatus = baseUrl + '/api/projects/default';
-    const [error] = await to(axios.get(checkStatus));
+    const [error, data] = await to(axios.get(checkStatus));
 
     if (error) {
       vscode.window.showErrorMessage(`Could not connect to: ${checkStatus}`);
