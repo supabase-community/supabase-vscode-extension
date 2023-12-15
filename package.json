@@ -96,6 +96,14 @@
         }
       },
       {
+        "command": "databaseProvider.create_migration_cmd",
+        "title": "Create new migration",
+        "icon": {
+          "light": "./src/assets/light/run.svg",
+          "dark": "./src/assets/dark/run.svg"
+        }
+      },
+      {
         "command": "databaseProvider.open_table",
         "title": "Open table",
         "icon": {
@@ -156,6 +164,11 @@
         {
           "command": "databaseProvider.open_table",
           "when": "view == database && viewItem == database.tables",
+          "group": "inline"
+        },
+        {
+          "command": "databaseProvider.create_migration_cmd",
+          "when": "view == database && viewItem == database.cli.migration_new",
           "group": "inline"
         },
         {

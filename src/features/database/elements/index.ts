@@ -47,8 +47,19 @@ export const cli: TreeElement = {
   },
   children: [
     {
+      id: CliElements.MIGRATION_NEW,
+      label: 'Create new migration',
+      contextValue: CliElements.MIGRATION_NEW,
+      collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
+      iconPath: {
+        light: './src/assets/light/terminal-2.svg',
+        dark: './src/assets/dark/terminal-2.svg'
+      }
+    },
+    {
       id: CliElements.GEN_TYPES,
       label: 'Generate types',
+      contextValue: CliElements.GEN_TYPES,
       collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
       iconPath: {
         light: './src/assets/light/terminal-2.svg',

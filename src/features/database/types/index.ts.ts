@@ -30,6 +30,7 @@ export enum TablesElement {
 }
 
 export enum CliElements {
+  MIGRATION_NEW = 'database.cli.migration_new',
   GEN_TYPES = 'database.cli.gen_types',
   DB_RESET = 'database.cli.db_reset',
   DB_PULL = 'database.cli.db_pull',

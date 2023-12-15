@@ -19,7 +19,7 @@ Supercharge your productivity by integrating your local Supabase instance right 
 
 ## Usage
 
-> Disclaimer: This is still a work in progress extension. Might have some broken edge cases. Not ready for production use.
+> Disclaimer: This is still a work in progress prototype. It might have some broken edge cases. I have zero experience in building extensions so contributions are welcome.
 
 ...
 
