@@ -14,7 +14,6 @@ import { registerCommands } from '@/register';
 export function activate(context: vscode.ExtensionContext) {
   const workspaceStorage = new WorkspaceStorage(context);
   const supabase = new SupabaseApi(workspaceStorage);
-  // const terminal = vscode.window.createTerminal(`Supabase CLI`);
 
   const connectSupabaseProvider = new ConnectProvider();
   const databaseProvider = new DatabaseProvider(context, supabase);

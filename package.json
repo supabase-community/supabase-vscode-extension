@@ -134,6 +134,14 @@
           "light": "./src/assets/light/run.svg",
           "dark": "./src/assets/dark/run.svg"
         }
+      },
+      {
+        "command": "databaseProvider.gen_types",
+        "title": "Run supabase generate types",
+        "icon": {
+          "light": "./src/assets/light/run.svg",
+          "dark": "./src/assets/dark/run.svg"
+        }
       }
     ],
     "viewsWelcome": [
@@ -184,6 +192,11 @@
         {
           "command": "databaseProvider.db_push",
           "when": "view == database && viewItem == database.cli.db_push",
+          "group": "inline"
+        },
+        {
+          "command": "databaseProvider.gen_types",
+          "when": "view == database && viewItem == database.cli.gen_types",
           "group": "inline"
         }
       ]
