@@ -120,6 +120,7 @@ export const database: TreeElement = {
     {
       id: DatabaseElement.VIEWS,
       label: 'Views',
+      contextValue: DatabaseElement.VIEWS,
       collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
       iconPath: {
         light: './src/assets/light/eye.svg',
@@ -139,6 +140,7 @@ export const database: TreeElement = {
     {
       id: DatabaseElement.DB_FUNCTIONS,
       label: 'DB Functions',
+      contextValue: DatabaseElement.DB_FUNCTIONS,
       collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
       iconPath: {
         light: './src/assets/light/variable-group.svg',
@@ -157,6 +159,7 @@ export const database: TreeElement = {
     {
       id: DatabaseElement.BUCKETS,
       label: 'Buckets',
+      contextValue: DatabaseElement.BUCKETS,
       collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
       iconPath: {
         light: './src/assets/light/files.svg',

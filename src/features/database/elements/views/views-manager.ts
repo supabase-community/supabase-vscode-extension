@@ -1,5 +1,5 @@
 import { TreeItem } from '@/features/database/elements';
-import { TreeElement, View } from '@/features/database/types/index.ts';
+import { DatabaseElement, TreeElement, View } from '@/features/database/types/index.ts';
 import * as vscode from 'vscode';
 
 export class ViewsManager {
@@ -18,6 +18,7 @@ export class ViewsManager {
           label: view.name,
           id: String(view.id),
           context: this.context,
+          contextValue: DatabaseElement.VIEWS_CHILDREN,
           iconPath: {
             light: './src/assets/light/table.svg',
             dark: './src/assets/dark/table.svg'

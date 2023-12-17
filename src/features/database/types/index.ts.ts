@@ -19,6 +19,7 @@ export enum DatabaseElement {
   TABLES = 'database.tables',
   MIGRATIONS = 'database.migrations',
   VIEWS = 'database.views',
+  VIEWS_CHILDREN = 'database.views.children',
   DB_FUNCTIONS = 'database.db_functions',
   EDGE_FUNCTIONS = 'database.edge_functions',
   BUCKETS = 'database.buckets'
@@ -26,7 +27,9 @@ export enum DatabaseElement {
 
 export enum TablesElement {
   PUBLIC = 'database.tables.public',
-  PRIVATE = 'database.tables.private'
+  PRIVATE = 'database.tables.private',
+  PUBLIC_CHILDREN = 'database.tables.public.children',
+  PRIVATE_CHILDREN = 'database.tables.private.children'
 }
 
 export enum CliElements {

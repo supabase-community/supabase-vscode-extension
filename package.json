@@ -171,12 +171,17 @@
         },
         {
           "command": "databaseProvider.open_table",
-          "when": "view == database && viewItem == database.tables.private",
+          "when": "view == database && viewItem == database.tables.private.children",
           "group": "inline"
         },
         {
           "command": "databaseProvider.open_table",
-          "when": "view == database && viewItem == database.tables.public",
+          "when": "view == database && viewItem == database.tables.public.children",
+          "group": "inline"
+        },
+        {
+          "command": "databaseProvider.open_table",
+          "when": "view == database && viewItem == database.views.children",
           "group": "inline"
         },
         {
