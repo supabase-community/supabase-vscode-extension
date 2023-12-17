@@ -2,7 +2,7 @@ import { Commands } from '@/constants';
 import { disconnect } from '@/features/connect/commands/disconnect';
 import { linkApiPort } from '@/features/connect/commands/link-api-port';
 import { SupabaseApi } from '@/features/database/classes/supabase-api';
-import { createNewMigration, genTypes, openDbFunction, openTable } from '@/features/database/commands';
+import { createNewMigration, dbPull, dbPush, genTypes, openDbFunction, openTable } from '@/features/database/commands';
 import { DatabaseProvider } from '@/features/database/provider/database-provider';
 import { TreeElement } from '@/features/database/types/index.ts';
 import { executeCommand } from '@/utils/exec-command';
@@ -25,8 +25,8 @@ export function registerCommands({ databaseProvider, workspaceStorage, supabase 
   vscode.commands.registerCommand('databaseProvider.create_migration', async () => createNewMigration());
   vscode.commands.registerCommand('databaseProvider.create_migration_cmd', async () => createNewMigration());
   vscode.commands.registerCommand('databaseProvider.db_reset', async () => executeCommand(Commands.DB_RESET));
-  vscode.commands.registerCommand('databaseProvider.db_pull', async () => executeCommand(Commands.DB_PULL));
-  vscode.commands.registerCommand('databaseProvider.db_push', async () => executeCommand(Commands.DB_PUSH));
+  vscode.commands.registerCommand('databaseProvider.db_pull', async () => dbPull());
+  vscode.commands.registerCommand('databaseProvider.db_push', async () => dbPush());
   vscode.commands.registerCommand('databaseProvider.gen_types', async () => genTypes());
   vscode.commands.registerCommand('databaseProvider.open_table', async (element: TreeElement) =>
     openTable(supabase, element)
