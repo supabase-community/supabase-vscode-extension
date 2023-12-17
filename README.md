@@ -5,7 +5,7 @@
 Supercharge your productivity by integrating your local Supabase instance right into the editor.
 
 <a href="https://marketplace.visualstudio.com/vscode">
-<strong>Coming soon →</strong>
+<strong>Install → </strong>
 </a>
 
 <br/>
@@ -27,12 +27,6 @@ Supercharge your productivity by integrating your local Supabase instance right 
 
 - `yarn run install:all`
   - install package dependencies for both the extension and react webview source code.
-  <!---
-  `yarn run build:webview`
-  build react webview source code. Must be executed before compiling or running the extension.
-  `yarn run start:webview`
-  runs the react webview source code in development mode.
-  --->
 - `npx supabase start`
   - starts the [supabase local development stack](https://supabase.com/docs/reference/cli/supabase-start)
 - `yarn run watch`
@@ -43,6 +37,12 @@ Supercharge your productivity by integrating your local Supabase instance right 
 ## Contributing
 
 If you have any questions or requests or want to contribute, please write an issue or give me a PR freely.
+
+### To-do
+
+- Query feature: execute queries directly from vscode
+- Edge functions
+- Open bucket files
 
 ## Bug report
 
