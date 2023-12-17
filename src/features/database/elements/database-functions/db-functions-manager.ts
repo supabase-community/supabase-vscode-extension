@@ -1,5 +1,5 @@
 import { TreeItem } from '@/features/database/elements';
-import { DatabaseFunction, Migration, TreeElement, View } from '@/features/database/types/index.ts';
+import { DatabaseElement, DatabaseFunction, Migration, TreeElement, View } from '@/features/database/types/index.ts';
 import * as vscode from 'vscode';
 
 export class DatabaseFunctionManager {
@@ -17,6 +17,7 @@ export class DatabaseFunctionManager {
         label: func.name,
         id: String(func.id),
         context: this.context,
+        contextValue: DatabaseElement.DB_FUNCTIONS_CHILDREN,
         iconPath: {
           light: './src/assets/light/cube.svg',
           dark: './src/assets/dark/cube.svg'

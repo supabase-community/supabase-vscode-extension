@@ -21,6 +21,7 @@ export enum DatabaseElement {
   VIEWS = 'database.views',
   VIEWS_CHILDREN = 'database.views.children',
   DB_FUNCTIONS = 'database.db_functions',
+  DB_FUNCTIONS_CHILDREN = 'database.db_functions.children',
   EDGE_FUNCTIONS = 'database.edge_functions',
   BUCKETS = 'database.buckets'
 }

@@ -2,7 +2,7 @@ import { Commands } from '@/constants';
 import { disconnect } from '@/features/connect/commands/disconnect';
 import { linkApiPort } from '@/features/connect/commands/link-api-port';
 import { SupabaseApi } from '@/features/database/classes/supabase-api';
-import { createNewMigration, genTypes, openTable } from '@/features/database/commands';
+import { createNewMigration, genTypes, openDbFunction, openTable } from '@/features/database/commands';
 import { DatabaseProvider } from '@/features/database/provider/database-provider';
 import { TreeElement } from '@/features/database/types/index.ts';
 import { executeCommand } from '@/utils/exec-command';
@@ -30,5 +30,8 @@ export function registerCommands({ databaseProvider, workspaceStorage, supabase 
   vscode.commands.registerCommand('databaseProvider.gen_types', async () => genTypes());
   vscode.commands.registerCommand('databaseProvider.open_table', async (element: TreeElement) =>
     openTable(supabase, element)
+  );
+  vscode.commands.registerCommand('databaseProvider.open_db_function', async (element: TreeElement) =>
+    openDbFunction(supabase, element)
   );
 }
