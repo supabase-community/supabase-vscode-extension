@@ -5,12 +5,10 @@ import * as vscode from 'vscode';
 
 export async function openTable(supabase: SupabaseApi, element: TreeElement) {
   const table = element.label;
-  const type = element.contextValue === TablesElement.PRIVATE ? 'private' : 'public';
+  const type = element.contextValue === TablesElement.PRIVATE_CHILDREN ? 'private' : 'public';
   const query = `select * from ${type}.${table} limit 10 offset 0`;
 
   const [err, res] = await to(supabase.executeQuery(query));
-  console.log('res', res);
-  console.log('err', err);
 
   if (err !== null || !res.data) {
     console.error(err);

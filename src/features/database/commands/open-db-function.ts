@@ -19,17 +19,17 @@ export async function openDbFunction(supabase: SupabaseApi, element: TreeElement
 
 function getWebviewContent(statement: string): string {
   return `
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>Tables</title>
-        <meta http-equiv="Content-Security-Policy" content="default-src *; img-src http: https: data: *;">
-    </head>
-    <body style="height:100vh;width:100vh;">
-    <textarea style="height:100vh;width:100vh;background:#3c3c3c;color:#d4d4d4" readonly>
-    ${statement}
-    </textarea>
-    </body>
-    </html>
-  `;
+  <!DOCTYPE html>
+  <html>
+  <head>
+      <title>DB Function</title>
+      <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src http: https: data: *;">    
+  </head>
+  <body style="height:100%;width:100%;">
+  <textarea rows="100" cols="100" style="color:#d4d4d4;background:#3c3c3c;width: 100%;height: 100%;" readonly>
+  ${statement}
+  </textarea>
+  </body>
+  </html>
+`;
 }

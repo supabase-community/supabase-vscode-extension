@@ -29,7 +29,7 @@ export class TreeItem extends vscode.TreeItem {
 
 export const queries: TreeElement = {
   id: DatabaseElement.QUERIES,
-  label: 'Queries',
+  label: 'Queries (Coming soon)',
   collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
   iconPath: {
     light: './src/assets/light/search.svg',
