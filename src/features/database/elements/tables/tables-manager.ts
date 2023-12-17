@@ -39,6 +39,7 @@ export class TablesManager {
         const item = new TreeItem({
           label: table.name,
           id: String(table.id),
+          contextValue: TablesElement.PRIVATE,
           context: this.context,
           iconPath: {
             light: './src/assets/light/table.svg',
@@ -60,6 +61,7 @@ export class TablesManager {
           label: table.name,
           id: String(table.id),
           context: this.context,
+          contextValue: TablesElement.PUBLIC,
           iconPath: {
             light: './src/assets/light/table.svg',
             dark: './src/assets/dark/table.svg'

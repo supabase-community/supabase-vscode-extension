@@ -1,14 +1,9 @@
 import 'module-alias/register';
 import * as vscode from 'vscode';
 import { WorkspaceStorage, WorkspaceStorageKeys } from './utils/workspace-storage';
-import { linkApiPort } from '@/features/connect/commands/link-api-port';
-import { disconnect } from '@/features/connect/commands/disconnect';
 import { ConnectProvider } from '@/features/connect/provider/connect-provider';
 import { DatabaseProvider } from '@/features/database/provider/database-provider';
 import { SupabaseApi } from '@/features/database/classes/supabase-api';
-import { executeCommand } from '@/utils/exec-command';
-import { Commands } from '@/constants';
-import { createNewMigration } from '@/features/database/commands';
 import { registerCommands } from '@/register';
 
 export function activate(context: vscode.ExtensionContext) {
@@ -27,7 +22,8 @@ export function activate(context: vscode.ExtensionContext) {
 
   registerCommands({
     databaseProvider,
-    workspaceStorage
+    workspaceStorage,
+    supabase
   });
 
   context.subscriptions.push(connectSupabaseView, databaseView);

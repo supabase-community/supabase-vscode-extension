@@ -1,8 +1,10 @@
 import { Commands } from '@/constants';
 import { disconnect } from '@/features/connect/commands/disconnect';
 import { linkApiPort } from '@/features/connect/commands/link-api-port';
-import { createNewMigration, genTypes } from '@/features/database/commands';
+import { SupabaseApi } from '@/features/database/classes/supabase-api';
+import { createNewMigration, genTypes, openTable } from '@/features/database/commands';
 import { DatabaseProvider } from '@/features/database/provider/database-provider';
+import { TreeElement } from '@/features/database/types/index.ts';
 import { executeCommand } from '@/utils/exec-command';
 import { WorkspaceStorage } from '@/utils/workspace-storage';
 import * as vscode from 'vscode';
@@ -10,9 +12,10 @@ import * as vscode from 'vscode';
 interface Props {
   databaseProvider: DatabaseProvider;
   workspaceStorage: WorkspaceStorage;
+  supabase: SupabaseApi;
 }
 
-export function registerCommands({ databaseProvider, workspaceStorage }: Props) {
+export function registerCommands({ databaseProvider, workspaceStorage, supabase }: Props) {
   vscode.commands.registerCommand('connectSupabase.link_api_port', async () => {
     linkApiPort(workspaceStorage);
     databaseProvider.refresh();
@@ -25,4 +28,7 @@ export function registerCommands({ databaseProvider, workspaceStorage }: Props) 
   vscode.commands.registerCommand('databaseProvider.db_pull', async () => executeCommand(Commands.DB_PULL));
   vscode.commands.registerCommand('databaseProvider.db_push', async () => executeCommand(Commands.DB_PUSH));
   vscode.commands.registerCommand('databaseProvider.gen_types', async () => genTypes());
+  vscode.commands.registerCommand('databaseProvider.open_table', async (element: TreeElement) =>
+    openTable(supabase, element)
+  );
 }

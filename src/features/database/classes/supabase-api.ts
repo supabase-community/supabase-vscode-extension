@@ -7,7 +7,7 @@ import * as vscode from 'vscode';
 enum Endpoint {
   TABLES = '/api/pg-meta/default/tables',
   VIEWS = '/api/pg-meta/default/views',
-  MIGRATIONS = '/api/pg-meta/default/query?k ey=migrations',
+  MIGRATIONS = '/api/pg-meta/default/query?key=migrations',
   DB_FUNCTIONS = '/api/pg-meta/default/functions',
   BUCKETS = '/api/storage/default/buckets'
 }
@@ -32,6 +32,12 @@ export class SupabaseApi {
     }
 
     return [];
+  }
+
+  async executeQuery(query: string) {
+    const endpoint = this.baseUrl + '/api/pg-meta/default/query';
+
+    return axios.post(endpoint, { query });
   }
 
   async getViews(): Promise<View[]> {
