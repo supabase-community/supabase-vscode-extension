@@ -21,7 +21,8 @@ Supercharge your productivity by integrating your local Supabase instance right 
 
 > Disclaimer: This is still a work in progress prototype. It might have some broken edge cases. I have zero experience in building extensions so contributions are welcome.
 
-...
+https://github.com/anas-araid/vscode-supabase-cli/assets/23257651/0b52af80-633d-46a8-972a-3b3f3697d0c9
+
 
 ## Development
 
