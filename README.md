@@ -5,7 +5,7 @@
 Supercharge your productivity by integrating your local Supabase instance right into the editor.
 
 <a href="https://marketplace.visualstudio.com/vscode">
-<strong>Install → </strong>
+<strong>Install (coming soon) → </strong>
 </a>
 
 <br/>
