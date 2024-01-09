@@ -8,6 +8,7 @@
   },
   "main": "./out/extension.js",
   "publisher": "anasaraid",
+  "icon": "icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/anas-araid/vscode-supabase-cli"
