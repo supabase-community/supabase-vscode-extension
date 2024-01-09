@@ -4,9 +4,18 @@
   "description": "Integrate your local Supabase instance right into the editor.",
   "version": "0.0.1",
   "engines": {
-    "vscode": "^1.75.0"
+    "vscode": "^1.74.0"
   },
   "main": "./out/extension.js",
+  "publisher": "anasaraid",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anas-araid/vscode-supabase-cli"
+  },
+  "keywords": [
+    "supabase",
+    "supabase-cli"
+  ],
   "scripts": {
     "install:all": "yarn install && cd webview-ui && yarn install",
     "start:webview": "cd webview-ui && yarn run start",
