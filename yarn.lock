@@ -111,15 +111,17 @@
   resolved "https://registry.npmjs.org/@types/node/-/node-20.6.0.tgz"
   integrity sha512-najjVq5KN2vsH2U/xyh2opaSEz6cZMR2SetLIlxlj08nOcmPOemJmUK2o4kUzfLqfrWE0PIrNeE16XhYDd3nqg==
 
-"@types/node@^12.11.7":
-  version "12.20.55"
-  resolved "https://registry.npmjs.org/@types/node/-/node-12.20.55.tgz"
-  integrity sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==
+"@types/node@18.x":
+  version "18.19.39"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.19.39.tgz#c316340a5b4adca3aee9dcbf05de385978590593"
+  integrity sha512-nPwTRDKUctxw3di5b4TfT3I0sWDiWoPQCZjXhvdkINntwr8lcoVCKsTgnXeRubKIlfnV+eN/HYk6Jb40tbcEAQ==
+  dependencies:
+    undici-types "~5.26.4"
 
-"@types/vscode@^1.46.0":
-  version "1.82.0"
-  resolved "https://registry.npmjs.org/@types/vscode/-/vscode-1.82.0.tgz"
-  integrity sha512-VSHV+VnpF8DEm8LNrn8OJ8VuUNcBzN3tMvKrNpbhhfuVjFm82+6v44AbDhLvVFgCzn6vs94EJNTp7w8S6+Q1Rw==
+"@types/vscode@^1.86.0":
+  version "1.91.0"
+  resolved "https://registry.yarnpkg.com/@types/vscode/-/vscode-1.91.0.tgz#badaf9dfca14b08f1ad32fe197558d8d1702c3c9"
+  integrity sha512-PgPr+bUODjG3y+ozWUCyzttqR9EHny9sPAfJagddQjDwdtf66y2sDKJMnFZRuzBA2YtBGASqJGPil8VDUPvO6A==
 
 "@typescript-eslint/eslint-plugin@^4.14.1":
   version "4.33.0"
@@ -1268,6 +1270,11 @@ typescript@^4.1.3:
   version "4.9.5"
   resolved "https://registry.npmjs.org/typescript/-/typescript-4.9.5.tgz"
   integrity sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==
+
+undici-types@~5.26.4:
+  version "5.26.5"
+  resolved "https://registry.yarnpkg.com/undici-types/-/undici-types-5.26.5.tgz#bcd539893d00b56e964fd2657a4866b221a65617"
+  integrity sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==
 
 unzipper@^0.10.11:
   version "0.10.14"
