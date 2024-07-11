@@ -9,7 +9,7 @@ import { createChatRequestHandler } from './utils/chatRequestHandler';
 
 export function activate(context: vscode.ExtensionContext) {
   const workspaceStorage = new WorkspaceStorage(context);
-  const supabase = new SupabaseApi(workspaceStorage);
+  const supabase = new SupabaseApi();
 
   const connectSupabaseProvider = new ConnectProvider();
   const databaseProvider = new DatabaseProvider(context, supabase);

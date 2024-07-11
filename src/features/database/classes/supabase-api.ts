@@ -4,6 +4,11 @@ import to from 'await-to-js';
 import axios from 'axios';
 import * as vscode from 'vscode';
 
+enum Ports {
+  PG_META = 54323,
+  API = 54321
+}
+
 enum Endpoint {
   TABLES = '/api/pg-meta/default/tables',
   VIEWS = '/api/pg-meta/default/views',
@@ -12,18 +17,26 @@ enum Endpoint {
   BUCKETS = '/api/storage/default/buckets'
 }
 
+const BASE_URL = 'http://127.0.0.1';
+
 export class SupabaseApi {
   private baseUrl: string | undefined;
-  constructor(private readonly workspaceStorage: WorkspaceStorage) {
-    this.baseUrl = this.workspaceStorage.get(WorkspaceStorageKeys.BASE_URL);
+  constructor() {
+    this.baseUrl = BASE_URL;
   }
 
   getBaseUrl(): string | undefined {
     return this.baseUrl;
   }
 
+  async checkStatus() {
+    const checkStatus = `${this.baseUrl}:${Ports.PG_META}/api/projects/default`;
+    const [error, data] = await to(axios.get(checkStatus));
+    return { error, data };
+  }
+
   async getTables(): Promise<Table[]> {
-    const endpoint = this.baseUrl + Endpoint.TABLES;
+    const endpoint = `${this.baseUrl}:${Ports.PG_META}` + Endpoint.TABLES;
     const [_, res] = await to(axios.get(endpoint));
 
     if (res && res.data) {
@@ -35,13 +48,13 @@ export class SupabaseApi {
   }
 
   async executeQuery(query: string) {
-    const endpoint = this.baseUrl + '/api/pg-meta/default/query';
+    const endpoint = `${this.baseUrl}:${Ports.PG_META}` + '/api/pg-meta/default/query';
 
     return axios.post(endpoint, { query });
   }
 
   async getViews(): Promise<View[]> {
-    const endpoint = this.baseUrl + Endpoint.VIEWS;
+    const endpoint = `${this.baseUrl}:${Ports.PG_META}` + Endpoint.VIEWS;
     const [_, res] = await to(axios.get(endpoint));
     if (res && res.data) {
       const views = (res.data as View[]).filter((table) => table.schema === 'public');
@@ -51,7 +64,7 @@ export class SupabaseApi {
   }
 
   async getMigrations(): Promise<Migration[]> {
-    const endpoint = this.baseUrl + Endpoint.MIGRATIONS;
+    const endpoint = `${this.baseUrl}:${Ports.PG_META}` + Endpoint.MIGRATIONS;
     const [_, res] = await to(
       axios.post(endpoint, {
         query: 'select\n *\n from supabase_migrations.schema_migrations sm\n order by sm.version asc'
@@ -65,7 +78,7 @@ export class SupabaseApi {
   }
 
   async getDatabaseFunctions(): Promise<DatabaseFunction[]> {
-    const endpoint = this.baseUrl + Endpoint.DB_FUNCTIONS;
+    const endpoint = `${this.baseUrl}:${Ports.PG_META}` + Endpoint.DB_FUNCTIONS;
     const [err, res] = await to(axios.get(endpoint));
 
     if (err) {
@@ -80,7 +93,7 @@ export class SupabaseApi {
   }
 
   async getBuckets(): Promise<Bucket[]> {
-    const endpoint = this.baseUrl + Endpoint.BUCKETS;
+    const endpoint = `${this.baseUrl}:${Ports.PG_META}` + Endpoint.BUCKETS;
     const [err, res] = await to(axios.get(endpoint));
 
     if (err) {

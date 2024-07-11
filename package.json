@@ -189,7 +189,7 @@
     "viewsWelcome": [
       {
         "view": "connectSupabase",
-        "contents": "To continue connect your Supabase instance by entering the Studio API port. \n[Connect](command:connectSupabase.link_api_port)"
+        "contents": "Connect to your local Supabase instance. \n[Connect](command:connectSupabase.link_api_port)"
       }
     ],
     "menus": {
