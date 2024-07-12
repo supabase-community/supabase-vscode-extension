@@ -46,16 +46,26 @@ export const createChatRequestHandler = (supabase: SupabaseApi): vscode.ChatRequ
       try {
         const [model] = await vscode.lm.selectChatModels(MODEL_SELECTOR);
         if (model) {
-          const messages = [
-            vscode.LanguageModelChatMessage.User(
-              `You're a friendly PostgreSQL assistant called Supabase Clippy, helping with writing SQL.`
-            ),
-            vscode.LanguageModelChatMessage.User(prompt)
-          ];
+          try {
+            const schema = await supabase.getSchema();
+            console.log(schema);
+            const messages = [
+              vscode.LanguageModelChatMessage.User(
+                `You're a friendly PostgreSQL assistant called Supabase Clippy, helping with writing SQL.`
+              ),
+              vscode.LanguageModelChatMessage.User(
+                `Please provide help with ${prompt}. The reference database schema for question is ${schema}. IMPORTANT: Be sure you only use the tables and columns from this schema in your answer.`
+              )
+            ];
 
-          const chatResponse = await model.sendRequest(messages, {}, token);
-          for await (const fragment of chatResponse.text) {
-            stream.markdown(fragment);
+            const chatResponse = await model.sendRequest(messages, {}, token);
+            for await (const fragment of chatResponse.text) {
+              stream.markdown(fragment);
+            }
+          } catch (err) {
+            stream.markdown(
+              "🤔 I can't find the schema for the database. Please check that `supabase start` is running."
+            );
           }
         }
       } catch (err) {

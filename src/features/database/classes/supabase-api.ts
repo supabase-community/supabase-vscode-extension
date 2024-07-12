@@ -35,6 +35,15 @@ export class SupabaseApi {
     return { error, data };
   }
 
+  async getSchema() {
+    const sql = `SELECT table_name, column_name, data_type, character_maximum_length, column_default, is_nullable
+    FROM information_schema.columns
+    where table_schema = 'public'`;
+    const [err, res] = await to(this.executeQuery(sql));
+    if (err) throw err;
+    return this.schemaToDDL(res.data);
+  }
+
   async getTables(): Promise<Table[]> {
     const endpoint = `${this.baseUrl}:${Ports.PG_META}` + Endpoint.TABLES;
     const [_, res] = await to(axios.get(endpoint));
@@ -118,5 +127,30 @@ export class SupabaseApi {
       return res.data as BucketItem[];
     }
     return [];
+  }
+
+  schemaToDDL(schema: { ['table_name']: string; [key: string]: any }[]) {
+    const tables: { [key: string]: any } = {};
+    for (let row of schema) {
+      tables[row.table_name] = row;
+    }
+    const out = [];
+    const tableNames = Object.keys(tables);
+    for (let table of tableNames) {
+      const sql = [`create table ${table}(\n`];
+      const cols = schema.filter((s) => s.table_name === table);
+      for (let c of cols) {
+        let colSql = '';
+        //if (c.column_name === null || c.column_name === "") continue;
+        colSql = `  ${c.column_name} ${c.data_type}`;
+        if (c.is_nullable === 'NO') colSql += ' not null ';
+        if (c.column_default === 'NO') colSql += ` default ${c.column_default} `;
+        colSql += ',\n';
+        sql.push(colSql);
+      }
+      sql.push(');');
+      out.push(sql.join(''));
+    }
+    return out.join('\n');
   }
 }
