@@ -2,7 +2,7 @@
   "name": "vscode-supabase-cli",
   "displayName": "Supabase CLI for Visual Studio Code (BETA)",
   "description": "Integrate your local Supabase instance right into the editor.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "engines": {
     "vscode": "^1.75.0"
   },
