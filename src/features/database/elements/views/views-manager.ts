@@ -31,6 +31,7 @@ export class ViewsManager {
         }
         return item;
       }
+      return [];
     }) as TreeElement[];
   }
 

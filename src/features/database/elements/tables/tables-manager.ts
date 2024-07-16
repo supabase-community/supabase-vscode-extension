@@ -53,6 +53,7 @@ export class TablesManager {
         }
         return item;
       }
+      return [];
     }) as TreeElement[];
 
     publicTables.children = this.tables.flatMap((table) => {
@@ -74,6 +75,7 @@ export class TablesManager {
         }
         return item;
       }
+      return [];
     }) as TreeElement[];
 
     return [privateTable, publicTables];
