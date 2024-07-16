@@ -1,5 +1,5 @@
 const esbuild = require('esbuild');
-
+const copyPlugin = require('esbuild-plugin-copy').copy;
 const production = process.argv.includes('--production');
 const watch = process.argv.includes('--watch');
 
@@ -16,6 +16,13 @@ async function main() {
     external: ['vscode'],
     logLevel: 'silent',
     plugins: [
+      copyPlugin({
+        assets: {
+          // move logo inside dist folder
+          from: './src/assets/logo.svg',
+          to: './assets'
+        }
+      }),
       /* add to the end of plugins array */
       esbuildProblemMatcherPlugin
     ]
