@@ -1,5 +1,5 @@
 import { TreeItem } from '@/features/database/elements';
-import { Migration, TreeElement, View } from '@/features/database/types/index.ts';
+import { Migration, TreeElement, View } from '@/features/database/types/index';
 import * as vscode from 'vscode';
 
 export class MigrationsManager {
@@ -17,10 +17,7 @@ export class MigrationsManager {
         label: `${migration.version}_${migration.name}`,
         id: migration.version,
         context: this.context,
-        iconPath: {
-          light: './src/assets/light/file-code.svg',
-          dark: './src/assets/dark/file-code.svg'
-        },
+        iconPath: new vscode.ThemeIcon('file-code'),
         isChildren: true
       }) as TreeElement;
       return item;

@@ -1,5 +1,5 @@
 import { SupabaseApi } from '@/features/database/classes/supabase-api';
-import { TreeElement } from '@/features/database/types/index.ts';
+import { TreeElement } from '@/features/database/types/index';
 import * as vscode from 'vscode';
 
 export async function openDbFunction(supabase: SupabaseApi, element: TreeElement) {

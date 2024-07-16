@@ -15,7 +15,7 @@ export async function linkApiPort(workspaceStorage: WorkspaceStorage) {
   });
 
   if (port) {
-    const baseUrl = `http://localhost:${+port}`;
+    const baseUrl = `http://127.0.0.1:${+port}`;
     const checkStatus = baseUrl + '/api/projects/default';
     const [error, data] = await to(axios.get(checkStatus));
 

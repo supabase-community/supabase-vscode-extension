@@ -36,6 +36,13 @@ https://github.com/anas-araid/vscode-supabase-cli/assets/23257651/0b52af80-633d-
 - press `F5`
   - to open a new window with the extension loaded
 
+## Publishing
+
+- increment package.json version
+- npm run vscode:prepublish
+- npx vsce package
+- npx vsce publish
+
 ## Contributing
 
 If you have any questions or requests or want to contribute, please write an issue or give me a PR freely.

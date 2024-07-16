@@ -1,5 +1,5 @@
 import { TreeItem } from '@/features/database/elements';
-import { DatabaseElement, TreeElement, View } from '@/features/database/types/index.ts';
+import { DatabaseElement, TreeElement, View } from '@/features/database/types/index';
 import * as vscode from 'vscode';
 
 export class ViewsManager {
@@ -19,10 +19,7 @@ export class ViewsManager {
           id: String(view.id),
           context: this.context,
           contextValue: DatabaseElement.VIEWS_CHILDREN,
-          iconPath: {
-            light: './src/assets/light/table.svg',
-            dark: './src/assets/dark/table.svg'
-          },
+          iconPath: new vscode.ThemeIcon('table'),
           isChildren: true
         }) as TreeElement;
 
@@ -31,6 +28,7 @@ export class ViewsManager {
         }
         return item;
       }
+      return [];
     }) as TreeElement[];
   }
 
@@ -41,10 +39,7 @@ export class ViewsManager {
           label: `${column.name} ${column.data_type}`,
           id: column.id,
           context: this.context,
-          iconPath: {
-            light: './src/assets/light/symbol-field.svg',
-            dark: './src/assets/dark/symbol-field.svg'
-          },
+          iconPath: new vscode.ThemeIcon('symbol-field'),
           isChildren: true
         }) as TreeElement
     );

@@ -17,10 +17,10 @@ export class ConnectProvider implements vscode.TreeDataProvider<TreeElement> {
   readonly onDidChangeTreeData: vscode.Event<TreeElement | undefined> = this._onDidChangeTreeData.event;
 
   constructor() {}
-  getChildren(element?: TreeElement | undefined): vscode.ProviderResult<TreeElement[]> {
+  getChildren(_element?: TreeElement | undefined): vscode.ProviderResult<TreeElement[]> {
     return [];
   }
-  getTreeItem(element: TreeElement): vscode.TreeItem | Thenable<vscode.TreeItem> {
+  getTreeItem(_element: TreeElement): vscode.TreeItem | Thenable<vscode.TreeItem> {
     return {};
   }
   refresh(): void {

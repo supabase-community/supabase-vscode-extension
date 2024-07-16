@@ -2,11 +2,11 @@
   "name": "vscode-supabase-cli",
   "displayName": "Supabase CLI for Visual Studio Code (BETA)",
   "description": "Integrate your local Supabase instance right into the editor.",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "engines": {
-    "vscode": "^1.74.0"
+    "vscode": "^1.75.0"
   },
-  "main": "./out/extension.js",
+  "main": "./dist/extension.js",
   "publisher": "anasaraid",
   "icon": "icon.png",
   "repository": {
@@ -18,20 +18,25 @@
     "supabase-cli"
   ],
   "scripts": {
-    "install:all": "yarn install && cd webview-ui && yarn install",
-    "start:webview": "cd webview-ui && yarn run start",
-    "build:webview": "cd webview-ui && yarn run build",
-    "vscode:prepublish": "yarn run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "yarn run compile && yarn run lint",
-    "lint": "eslint src --ext ts"
+    "install:all": "npm install && cd webview-ui && npm install",
+    "start:webview": "cd webview-ui && npm run start",
+    "build:webview": "cd webview-ui && npm run build",
+    "vscode:prepublish-old": "npm run compile",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "compile": "npm run check-types && node esbuild.js",
+    "check-types": "tsc --noEmit",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "vscode:prepublish": "npm run package",
+    "package": "npm run check-types && node esbuild.js --production"
   },
   "dependencies": {
     "await-to-js": "^3.0.0",
     "http": "^0.0.1-security",
     "lodash": "^4.17.21",
-    "module-alias": "^2.2.3",
+    "npm-run-all": "^4.1.5",
     "path": "^0.12.7"
   },
   "devDependencies": {
@@ -42,19 +47,22 @@
     "@typescript-eslint/eslint-plugin": "^4.14.1",
     "@typescript-eslint/parser": "^4.14.1",
     "axios": "^1.6.2",
+    "esbuild": "^0.19.11",
+    "esbuild-plugin-copy": "^2.1.1",
     "eslint": "^7.19.0",
     "glob": "^7.1.6",
     "prettier": "^2.2.1",
     "typescript": "^4.1.3",
     "vscode-test": "^1.5.0"
   },
+  "activationEvents": [],
   "contributes": {
     "viewsContainers": {
       "activitybar": [
         {
           "id": "vscode-supabase-cli",
           "title": "Supabase CLI",
-          "icon": "./src/assets/logo.svg"
+          "icon": "dist/assets/logo.svg"
         }
       ]
     },
@@ -84,82 +92,52 @@
       {
         "command": "databaseProvider.refresh",
         "title": "Refresh",
-        "icon": {
-          "light": "./src/assets/light/refresh.svg",
-          "dark": "./src/assets/dark/refresh.svg"
-        }
+        "icon": "$(refresh)"
       },
       {
         "command": "databaseProvider.disconnect",
         "title": "Disconnect",
-        "icon": {
-          "light": "./src/assets/light/sign-out.svg",
-          "dark": "./src/assets/dark/sign-out.svg"
-        }
+        "icon": "$(sign-out)"
       },
       {
         "command": "databaseProvider.create_migration",
         "title": "Create new migration",
-        "icon": {
-          "light": "./src/assets/light/add.svg",
-          "dark": "./src/assets/dark/add.svg"
-        }
+        "icon": "$(add)"
       },
       {
         "command": "databaseProvider.open_table",
         "title": "Open current table",
-        "icon": {
-          "light": "./src/assets/light/link-external.svg",
-          "dark": "./src/assets/dark/link-external.svg"
-        }
+        "icon": "$(link-external)"
       },
       {
         "command": "databaseProvider.create_migration_cmd",
         "title": "Create new migration",
-        "icon": {
-          "light": "./src/assets/light/run.svg",
-          "dark": "./src/assets/dark/run.svg"
-        }
+        "icon": "$(run)"
       },
       {
         "command": "databaseProvider.db_reset",
         "title": "Run supabase db reset command",
-        "icon": {
-          "light": "./src/assets/light/run.svg",
-          "dark": "./src/assets/dark/run.svg"
-        }
+        "icon": "$(run)"
       },
       {
         "command": "databaseProvider.db_pull",
         "title": "Run supabase db pull command",
-        "icon": {
-          "light": "./src/assets/light/run.svg",
-          "dark": "./src/assets/dark/run.svg"
-        }
+        "icon": "$(run)"
       },
       {
         "command": "databaseProvider.db_push",
         "title": "Run supabase db push command",
-        "icon": {
-          "light": "./src/assets/light/run.svg",
-          "dark": "./src/assets/dark/run.svg"
-        }
+        "icon": "$(run)"
       },
       {
         "command": "databaseProvider.gen_types",
         "title": "Run supabase generate types",
-        "icon": {
-          "light": "./src/assets/light/run.svg",
-          "dark": "./src/assets/dark/run.svg"
-        }
+        "icon": "$(run)"
       },
       {
         "command": "databaseProvider.open_db_function",
         "title": "Open db function source code",
-        "icon": {
-          "light": "./src/assets/light/link-external.svg",
-          "dark": "./src/assets/dark/link-external.svg"
-        }
+        "icon": "$(link-external)"
       }
     ],
     "viewsWelcome": [
@@ -236,6 +214,6 @@
     }
   },
   "_moduleAliases": {
-    "@": "./out"
+    "@": "./dist"
   }
 }

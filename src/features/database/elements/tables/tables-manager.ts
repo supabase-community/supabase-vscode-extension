@@ -1,5 +1,5 @@
 import { TreeItem } from '@/features/database/elements';
-import { Table, TablesElement, TreeElement } from '@/features/database/types/index.ts';
+import { Table, TablesElement, TreeElement } from '@/features/database/types/index';
 import * as vscode from 'vscode';
 
 export class TablesManager {
@@ -16,10 +16,7 @@ export class TablesManager {
       label: 'Private',
       id: TablesElement.PRIVATE,
       context: this.context,
-      iconPath: {
-        light: './src/assets/light/lock.svg',
-        dark: './src/assets/dark/lock.svg'
-      },
+      iconPath: new vscode.ThemeIcon('lock'),
       isChildren: true
     }) as TreeElement;
 
@@ -27,10 +24,7 @@ export class TablesManager {
       label: 'Public',
       id: TablesElement.PUBLIC,
       context: this.context,
-      iconPath: {
-        light: './src/assets/light/unlock.svg',
-        dark: './src/assets/dark/unlock.svg'
-      },
+      iconPath: new vscode.ThemeIcon('unlock'),
       isChildren: true
     }) as TreeElement;
 
@@ -41,10 +35,7 @@ export class TablesManager {
           id: String(table.id),
           contextValue: TablesElement.PRIVATE_CHILDREN,
           context: this.context,
-          iconPath: {
-            light: './src/assets/light/table.svg',
-            dark: './src/assets/dark/table.svg'
-          },
+          iconPath: new vscode.ThemeIcon('table'),
           isChildren: true
         }) as TreeElement;
 
@@ -53,6 +44,7 @@ export class TablesManager {
         }
         return item;
       }
+      return [];
     }) as TreeElement[];
 
     publicTables.children = this.tables.flatMap((table) => {
@@ -62,10 +54,7 @@ export class TablesManager {
           id: String(table.id),
           context: this.context,
           contextValue: TablesElement.PUBLIC_CHILDREN,
-          iconPath: {
-            light: './src/assets/light/table.svg',
-            dark: './src/assets/dark/table.svg'
-          },
+          iconPath: new vscode.ThemeIcon('table'),
           isChildren: true
         }) as TreeElement;
 
@@ -74,6 +63,7 @@ export class TablesManager {
         }
         return item;
       }
+      return [];
     }) as TreeElement[];
 
     return [privateTable, publicTables];
@@ -86,10 +76,7 @@ export class TablesManager {
           label: `${column.name} ${column.data_type}`,
           id: column.id,
           context: this.context,
-          iconPath: {
-            light: './src/assets/light/symbol-field.svg',
-            dark: './src/assets/dark/symbol-field.svg'
-          },
+          iconPath: new vscode.ThemeIcon('symbol-field'),
           isChildren: true
         }) as TreeElement
     );

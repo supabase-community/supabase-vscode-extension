@@ -9,7 +9,6 @@ export type TreeElement = {
   command?: vscode.Command;
   collapsibleState?: vscode.TreeItemCollapsibleState;
   children?: TreeElement[];
-  iconPath?: { light: string; dark: string };
 } & vscode.TreeItem;
 
 export enum DatabaseElement {

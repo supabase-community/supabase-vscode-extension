@@ -1,5 +1,5 @@
 import { SupabaseApi } from '@/features/database/classes/supabase-api';
-import { TablesElement, TreeElement } from '@/features/database/types/index.ts';
+import { TablesElement, TreeElement } from '@/features/database/types/index';
 import to from 'await-to-js';
 import * as vscode from 'vscode';
 
