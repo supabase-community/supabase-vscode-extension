@@ -1,12 +1,16 @@
 import * as vscode from 'vscode';
-import { CliElements, DatabaseElement, TreeElement } from '@/features/database/types/index.ts';
+import { CliElements, DatabaseElement, TreeElement } from '@/features/database/types/index';
 
 export class TreeItem extends vscode.TreeItem {
   constructor(props: {
     readonly id: string;
     readonly label?: string;
     readonly description?: string;
-    readonly iconPath?: { light: string; dark: string } | undefined;
+    readonly iconPath?:
+      | string
+      | vscode.Uri
+      | { light: string | vscode.Uri; dark: string | vscode.Uri }
+      | vscode.ThemeIcon;
     readonly contextValue?: string;
     readonly collapsibleState?: vscode.TreeItemCollapsibleState;
     readonly command?: vscode.Command;
@@ -16,12 +20,7 @@ export class TreeItem extends vscode.TreeItem {
     super(props.label || 'undefined label', props.collapsibleState);
     this.id = props.id;
     this.command = props.command;
-    this.iconPath = props.iconPath
-      ? {
-          dark: props.isChildren ? props.iconPath.dark : props.context.asAbsolutePath(props.iconPath.dark),
-          light: props.context.asAbsolutePath(props.iconPath.light)
-        }
-      : undefined;
+    this.iconPath = props.iconPath;
     this.description = props.description;
     this.contextValue = props.contextValue;
   }
@@ -31,70 +30,49 @@ export const queries: TreeElement = {
   id: DatabaseElement.QUERIES,
   label: 'Queries (Coming soon)',
   collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
-  iconPath: {
-    light: './src/assets/light/search.svg',
-    dark: './src/assets/dark/search.svg'
-  }
+  iconPath: new vscode.ThemeIcon('search')
 };
 
 export const cli: TreeElement = {
   id: DatabaseElement.CLI,
   label: 'Commands',
   collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
-  iconPath: {
-    light: './src/assets/light/terminal.svg',
-    dark: './src/assets/dark/terminal.svg'
-  },
+  iconPath: new vscode.ThemeIcon('terminal'),
   children: [
     {
       id: CliElements.MIGRATION_NEW,
       label: 'Create new migration',
       contextValue: CliElements.MIGRATION_NEW,
       collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
-      iconPath: {
-        light: './src/assets/light/terminal-2.svg',
-        dark: './src/assets/dark/terminal-2.svg'
-      }
+      iconPath: new vscode.ThemeIcon('terminal-powershell')
     },
     {
       id: CliElements.GEN_TYPES,
       label: 'Generate types',
       contextValue: CliElements.GEN_TYPES,
       collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
-      iconPath: {
-        light: './src/assets/light/terminal-2.svg',
-        dark: './src/assets/dark/terminal-2.svg'
-      }
+      iconPath: new vscode.ThemeIcon('terminal-powershell')
     },
     {
       id: CliElements.DB_RESET,
       label: 'DB Reset',
       contextValue: CliElements.DB_RESET,
       collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
-      iconPath: {
-        light: './src/assets/light/terminal-2.svg',
-        dark: './src/assets/dark/terminal-2.svg'
-      }
+      iconPath: new vscode.ThemeIcon('terminal-powershell')
     },
     {
       id: CliElements.DB_PULL,
       label: 'DB Pull',
       contextValue: CliElements.DB_PULL,
       collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
-      iconPath: {
-        light: './src/assets/light/terminal-2.svg',
-        dark: './src/assets/dark/terminal-2.svg'
-      }
+      iconPath: new vscode.ThemeIcon('terminal-powershell')
     },
     {
       id: CliElements.DB_PUSH,
       label: 'DB Push',
       contextValue: CliElements.DB_PUSH,
       collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
-      iconPath: {
-        light: './src/assets/light/terminal-2.svg',
-        dark: './src/assets/dark/terminal-2.svg'
-      }
+      iconPath: new vscode.ThemeIcon('terminal-powershell')
     }
   ]
 };
@@ -103,49 +81,34 @@ export const database: TreeElement = {
   id: DatabaseElement.LOCALHOST,
   label: '127.0.0.1',
   collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
-  iconPath: {
-    light: './src/assets/light/database.svg',
-    dark: './src/assets/dark/database.svg'
-  },
+  iconPath: new vscode.ThemeIcon('database'),
   children: [
     {
       id: DatabaseElement.TABLES,
       label: 'Tables',
       collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
-      iconPath: {
-        light: './src/assets/light/table.svg',
-        dark: './src/assets/dark/table.svg'
-      }
+      iconPath: new vscode.ThemeIcon('table')
     },
     {
       id: DatabaseElement.VIEWS,
       label: 'Views',
       contextValue: DatabaseElement.VIEWS,
       collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
-      iconPath: {
-        light: './src/assets/light/eye.svg',
-        dark: './src/assets/dark/eye.svg'
-      }
+      iconPath: new vscode.ThemeIcon('eye')
     },
     {
       id: DatabaseElement.MIGRATIONS,
       label: 'Remote migrations',
       contextValue: DatabaseElement.MIGRATIONS,
       collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
-      iconPath: {
-        light: './src/assets/light/arrow-swap.svg',
-        dark: './src/assets/dark/arrow-swap.svg'
-      }
+      iconPath: new vscode.ThemeIcon('arrow-swap')
     },
     {
       id: DatabaseElement.DB_FUNCTIONS,
       label: 'DB Functions',
       contextValue: DatabaseElement.DB_FUNCTIONS,
       collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
-      iconPath: {
-        light: './src/assets/light/variable-group.svg',
-        dark: './src/assets/dark/variable-group.svg'
-      }
+      iconPath: new vscode.ThemeIcon('variable-group')
     },
     // {
     //   id: DatabaseElement.EDGE_FUNCTIONS,
@@ -161,10 +124,7 @@ export const database: TreeElement = {
       label: 'Buckets',
       contextValue: DatabaseElement.BUCKETS,
       collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
-      iconPath: {
-        light: './src/assets/light/files.svg',
-        dark: './src/assets/dark/files.svg'
-      }
+      iconPath: new vscode.ThemeIcon('files')
     }
   ]
 };

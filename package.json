@@ -97,74 +97,47 @@
       {
         "command": "databaseProvider.disconnect",
         "title": "Disconnect",
-        "icon": {
-          "light": "./src/assets/light/sign-out.svg",
-          "dark": "./src/assets/dark/sign-out.svg"
-        }
+        "icon": "$(sign-out)"
       },
       {
         "command": "databaseProvider.create_migration",
         "title": "Create new migration",
-        "icon": {
-          "light": "./src/assets/light/add.svg",
-          "dark": "./src/assets/dark/add.svg"
-        }
+        "icon": "$(add)"
       },
       {
         "command": "databaseProvider.open_table",
         "title": "Open current table",
-        "icon": {
-          "light": "./src/assets/light/link-external.svg",
-          "dark": "./src/assets/dark/link-external.svg"
-        }
+        "icon": "$(link-external)"
       },
       {
         "command": "databaseProvider.create_migration_cmd",
         "title": "Create new migration",
-        "icon": {
-          "light": "./src/assets/light/run.svg",
-          "dark": "./src/assets/dark/run.svg"
-        }
+        "icon": "$(run)"
       },
       {
         "command": "databaseProvider.db_reset",
         "title": "Run supabase db reset command",
-        "icon": {
-          "light": "./src/assets/light/run.svg",
-          "dark": "./src/assets/dark/run.svg"
-        }
+        "icon": "$(run)"
       },
       {
         "command": "databaseProvider.db_pull",
         "title": "Run supabase db pull command",
-        "icon": {
-          "light": "./src/assets/light/run.svg",
-          "dark": "./src/assets/dark/run.svg"
-        }
+        "icon": "$(run)"
       },
       {
         "command": "databaseProvider.db_push",
         "title": "Run supabase db push command",
-        "icon": {
-          "light": "./src/assets/light/run.svg",
-          "dark": "./src/assets/dark/run.svg"
-        }
+        "icon": "$(run)"
       },
       {
         "command": "databaseProvider.gen_types",
         "title": "Run supabase generate types",
-        "icon": {
-          "light": "./src/assets/light/run.svg",
-          "dark": "./src/assets/dark/run.svg"
-        }
+        "icon": "$(run)"
       },
       {
         "command": "databaseProvider.open_db_function",
         "title": "Open db function source code",
-        "icon": {
-          "light": "./src/assets/light/link-external.svg",
-          "dark": "./src/assets/dark/link-external.svg"
-        }
+        "icon": "$(link-external)"
       }
     ],
     "viewsWelcome": [

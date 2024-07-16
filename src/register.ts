@@ -4,7 +4,7 @@ import { linkApiPort } from '@/features/connect/commands/link-api-port';
 import { SupabaseApi } from '@/features/database/classes/supabase-api';
 import { createNewMigration, dbPull, dbPush, genTypes, openDbFunction, openTable } from '@/features/database/commands';
 import { DatabaseProvider } from '@/features/database/provider/database-provider';
-import { TreeElement } from '@/features/database/types/index.ts';
+import { TreeElement } from '@/features/database/types/index';
 import { executeCommand } from '@/utils/exec-command';
 import { WorkspaceStorage } from '@/utils/workspace-storage';
 import * as vscode from 'vscode';

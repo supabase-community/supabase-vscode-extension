@@ -5,7 +5,7 @@ import { DatabaseFunctionManager } from '@/features/database/elements/database-f
 import { MigrationsManager } from '@/features/database/elements/migrations/migrations-manager';
 import { TablesManager } from '@/features/database/elements/tables/tables-manager';
 import { ViewsManager } from '@/features/database/elements/views/views-manager';
-import { DatabaseElement, TreeElement } from '@/features/database/types/index.ts';
+import { DatabaseElement, TreeElement } from '@/features/database/types/index';
 import * as vscode from 'vscode';
 import { isEmpty } from 'lodash';
 

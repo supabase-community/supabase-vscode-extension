@@ -10,6 +10,7 @@ export function activate(context: vscode.ExtensionContext) {
   const supabase = new SupabaseApi(workspaceStorage);
   const connectSupabaseProvider = new ConnectProvider();
   const databaseProvider = new DatabaseProvider(context, supabase);
+
   const connectSupabaseView = vscode.window.createTreeView('connectSupabase', {
     treeDataProvider: connectSupabaseProvider
   });

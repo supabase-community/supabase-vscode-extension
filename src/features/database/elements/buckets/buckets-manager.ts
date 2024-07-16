@@ -1,6 +1,6 @@
 import { SupabaseApi } from '@/features/database/classes/supabase-api';
 import { TreeItem } from '@/features/database/elements';
-import { Bucket, BucketItem, DatabaseFunction, Migration, TreeElement, View } from '@/features/database/types/index.ts';
+import { Bucket, BucketItem, DatabaseFunction, Migration, TreeElement, View } from '@/features/database/types/index';
 import * as vscode from 'vscode';
 
 export class BucketsManager {
@@ -18,10 +18,7 @@ export class BucketsManager {
         label: bucket.name,
         id: bucket.id,
         context: this.context,
-        iconPath: {
-          light: './src/assets/light/folder.svg',
-          dark: './src/assets/dark/folder.svg'
-        },
+        iconPath: new vscode.ThemeIcon('folder'),
         isChildren: true
       }) as TreeElement;
 
@@ -35,10 +32,7 @@ export class BucketsManager {
         label: item.name,
         id: item.id,
         context: this.context,
-        iconPath: {
-          light: './src/assets/light/file-media.svg',
-          dark: './src/assets/dark/file-media.svg'
-        },
+        iconPath: new vscode.ThemeIcon('file-media'),
         isChildren: true
       }) as TreeElement;
     });

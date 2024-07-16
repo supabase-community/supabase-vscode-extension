@@ -1,4 +1,4 @@
-import { Bucket, BucketItem, DatabaseFunction, Migration, Table, View } from '@/features/database/types/index.ts';
+import { Bucket, BucketItem, DatabaseFunction, Migration, Table, View } from '@/features/database/types/index';
 import { WorkspaceStorage, WorkspaceStorageKeys } from '@/utils/workspace-storage';
 import to from 'await-to-js';
 import axios from 'axios';
