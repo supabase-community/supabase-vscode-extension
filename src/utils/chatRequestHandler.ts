@@ -42,19 +42,57 @@ export const createChatRequestHandler = (supabase: SupabaseApi): vscode.ChatRequ
       }
 
       return { metadata: { command: 'show' } };
+    } else if (request.command === 'migration') {
+      try {
+        const [model] = await vscode.lm.selectChatModels(MODEL_SELECTOR);
+        if (model) {
+          try {
+            const schema = await supabase.getSchema();
+
+            const messages = [
+              vscode.LanguageModelChatMessage.User(
+                `You're a friendly PostgreSQL assistant called Supabase Clippy, helping with writing SQL. IMPORTANT: Only respond with valid SQL queries. All explanatory text needs to be escaped!`
+              ),
+              vscode.LanguageModelChatMessage.User(
+                `Please provide help with ${prompt}. The reference database schema for question is ${schema}. IMPORTANT: Be sure you only use the tables and columns from this schema in your answer.`
+              )
+            ];
+
+            const chatResponse = await model.sendRequest(messages, {}, token);
+            for await (const fragment of chatResponse.text) {
+              stream.markdown(fragment);
+            }
+
+            // TODO: create new migration file (execute supabase migration new copilot)
+            // TODO: populate migration file with chatResponse.text
+            // TODO: open migration file in editor
+            // TODO: render button to apply migration
+
+            stream.markdown('finished');
+          } catch (err) {
+            stream.markdown(
+              "🤔 I can't find the schema for the database. Please check that `supabase start` is running."
+            );
+          }
+        }
+      } catch (err) {
+        handleError(err, stream);
+      }
+
+      return { metadata: { command: 'migration' } };
     } else {
       try {
         const [model] = await vscode.lm.selectChatModels(MODEL_SELECTOR);
         if (model) {
           try {
             const schema = await supabase.getSchema();
-            console.log(schema);
+
             const messages = [
               vscode.LanguageModelChatMessage.User(
                 `You're a friendly PostgreSQL assistant called Supabase Clippy, helping with writing SQL.`
               ),
               vscode.LanguageModelChatMessage.User(
-                `Please provide help with ${prompt}. The reference database schema for question is ${schema}. IMPORTANT: Be sure you only use the tables and columns from this schema in your answer.`
+                `Please provide help with ${prompt}. The reference database schema for this question is ${schema}. IMPORTANT: Be sure you only use the tables and columns from this schema in your answer.`
               )
             ];
 
