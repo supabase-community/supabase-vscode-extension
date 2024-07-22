@@ -87,15 +87,15 @@
       {
         "id": "supabase.clippy",
         "name": "supabase",
-        "description": "Let's have some fun with Postgres",
+        "description": "Ask Supabase Clippy about your database.",
         "commands": [
           {
             "name": "show",
-            "description": "Shows all tables. Or, pass in a table name to see the columns"
+            "description": "Shows all tables."
           },
           {
-            "name": "fix",
-            "description": "Fixes the last error encountered"
+            "name": "migration",
+            "description": "Create a new schema migration."
           }
         ]
       }
