@@ -74,7 +74,6 @@ export const createChatRequestHandler = (supabase: SupabaseApi): vscode.ChatRequ
               stream.markdown(fragment);
               responseText += fragment;
             }
-            console.log({ responseText });
 
             // Open migration file in editor.
             let filePath = await getFilePath();
@@ -102,9 +101,12 @@ export const createChatRequestHandler = (supabase: SupabaseApi): vscode.ChatRequ
               await textEditor.document.save();
             }
 
-            // TODO: render button to apply migration
-
-            stream.markdown('finished');
+            // Render button to apply migration.
+            stream.markdown('\n\nMake sure to review the migration file before applying it!');
+            stream.button({
+              command: 'databaseProvider.db_push',
+              title: vscode.l10n.t('Apply migration.')
+            });
           } catch (err) {
             stream.markdown(
               "🤔 I can't find the schema for the database. Please check that `supabase start` is running."
@@ -182,9 +184,9 @@ async function getFilePath() {
   const folderUri = vscode.Uri.file(folderPath);
   const entries = await vscode.workspace.fs.readDirectory(folderUri);
 
-  entries.forEach(([name, type]) => {
-    console.log(`${name} - ${type === vscode.FileType.File ? 'File' : 'Directory'}`);
-  });
+  // entries.forEach(([name, type]) => {
+  //   console.log(`${name} - ${type === vscode.FileType.File ? 'File' : 'Directory'}`);
+  // });
 
   const filePath = path.join(folderPath, entries[entries.length - 1][0]);
   return filePath;
