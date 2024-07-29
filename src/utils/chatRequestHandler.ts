@@ -3,6 +3,7 @@ import { executeCommand } from '@/utils/exec-command';
 import { SupabaseApi } from '@/features/database/classes/supabase-api';
 import * as vscode from 'vscode';
 import * as path from 'path';
+import { extractCode } from '@/utils/formatSql';
 
 interface ICatChatResult extends vscode.ChatResult {
   metadata: {
@@ -63,10 +64,17 @@ export const createChatRequestHandler = (supabase: SupabaseApi): vscode.ChatRequ
                 `You're a friendly PostgreSQL assistant called Supabase Clippy, helping with writing database migrations.`
               ),
               vscode.LanguageModelChatMessage.User(
-                `Please provide help with ${prompt}. The reference database schema for question is ${schema}. IMPORTANT: Be sure you only use the tables and columns from this schema in your answer. Respond only with valid SQL code. Do not use markdown!`
+                `Please provide help with ${prompt}. The reference database schema for question is ${schema}. IMPORTANT: Be sure you only use the tables and columns from this schema in your answer!`
               )
             ];
             const chatResponse = await model.sendRequest(messages, {}, token);
+            let responseText = '';
+
+            for await (const fragment of chatResponse.text) {
+              stream.markdown(fragment);
+              responseText += fragment;
+            }
+            console.log({ responseText });
 
             // Open migration file in editor.
             let filePath = await getFilePath();
@@ -80,16 +88,18 @@ export const createChatRequestHandler = (supabase: SupabaseApi): vscode.ChatRequ
             await vscode.window.showTextDocument(doc);
             const textEditor = vscode.window.activeTextEditor;
 
-            // Populate migration file with chatResponse.text
-            for await (const fragment of chatResponse.text) {
-              stream.markdown(fragment);
-              if (textEditor) {
+            // Extract SQL from markdown and write to migration file.
+            const sql = extractCode(responseText);
+
+            if (textEditor) {
+              for await (const statement of sql) {
                 await textEditor.edit((edit) => {
                   const lastLine = textEditor.document.lineAt(textEditor.document.lineCount - 1);
                   const position = new vscode.Position(lastLine.lineNumber, lastLine.text.length);
-                  edit.insert(position, fragment);
+                  edit.insert(position, statement);
                 });
               }
+              await textEditor.document.save();
             }
 
             // TODO: render button to apply migration
