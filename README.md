@@ -57,6 +57,11 @@ If you have any questions or requests or want to contribute, please write an iss
 
 If you find a bug, please create a new [issue](https://github.com/anas-araid/vscode-supabase-cli/issues) on GitHub.
 
+## Authors
+
+- [Anas Araid](https://github.com/anas-araid)
+- [Thor Schaeff](https://github.com/thorwebdev)
+
 ## License
 
 MIT

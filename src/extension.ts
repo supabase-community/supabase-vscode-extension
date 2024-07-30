@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { WorkspaceStorage, WorkspaceStorageKeys } from './utils/workspace-storage';
+import { WorkspaceStorage } from './utils/workspace-storage';
 import { ConnectProvider } from '@/features/connect/provider/connect-provider';
 import { DatabaseProvider } from '@/features/database/provider/database-provider';
 import { SupabaseApi } from '@/features/database/classes/supabase-api';
@@ -8,7 +8,7 @@ import { createChatRequestHandler } from './utils/chatRequestHandler';
 
 export function activate(context: vscode.ExtensionContext) {
   const workspaceStorage = new WorkspaceStorage(context);
-  const supabase = new SupabaseApi(workspaceStorage);
+  const supabase = new SupabaseApi();
   const connectSupabaseProvider = new ConnectProvider();
   const databaseProvider = new DatabaseProvider(context, supabase);
 

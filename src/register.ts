@@ -17,7 +17,7 @@ interface Props {
 
 export function registerCommands({ databaseProvider, workspaceStorage, supabase }: Props) {
   vscode.commands.registerCommand('connectSupabase.link_api_port', async () => {
-    linkApiPort(workspaceStorage);
+    linkApiPort();
     databaseProvider.refresh();
   });
   vscode.commands.registerCommand('databaseProvider.refresh', () => databaseProvider.refresh());
