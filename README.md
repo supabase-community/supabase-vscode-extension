@@ -1,6 +1,6 @@
 <img src="./src/assets/supabase-vscode.png" alt="preview" width="100%" style="border-radius: 8px">
 
-# Supabase CLI for Visual Studio Code
+# Supabase for Visual Studio Code
 
 Supercharge your productivity by integrating your local Supabase instance right into the editor.
 
