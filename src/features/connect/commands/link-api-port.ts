@@ -1,33 +1,17 @@
 import * as vscode from 'vscode';
-import to from 'await-to-js';
-import { WorkspaceStorage, WorkspaceStorageKeys } from '@/utils/workspace-storage';
-import axios from 'axios';
+import { SupabaseApi } from '@/features/database/classes/supabase-api';
 
-export async function linkApiPort(workspaceStorage: WorkspaceStorage) {
-  const port = await vscode.window.showInputBox({
-    placeHolder: 'For example: 54323',
-    validateInput: (port) => {
-      if (isNaN(+port) || +port > 65535) {
-        return 'Invalid port number. Cannot contain letters and the number must be less than 65535.';
-      }
-      return null;
-    }
-  });
+export async function linkApiPort() {
+  const supabase = new SupabaseApi();
+  const { data, error } = await supabase.checkStatus();
 
-  if (port) {
-    const baseUrl = `http://127.0.0.1:${+port}`;
-    const checkStatus = baseUrl + '/api/projects/default';
-    const [error, data] = await to(axios.get(checkStatus));
-
-    if (error) {
-      vscode.window.showErrorMessage(`Could not connect to: ${checkStatus}`);
-      return;
-    }
-    workspaceStorage.set(WorkspaceStorageKeys.BASE_URL, baseUrl);
-    vscode.commands.executeCommand('setContext', 'workspaceState.isConnected', true);
-    return;
-  } else {
-    vscode.window.showErrorMessage('Invalid port number');
+  if (error) {
+    vscode.window.showErrorMessage(
+      `Could not connect to local Supabase project. Make sure you've run 'supabase start'!`
+    );
     return;
   }
+
+  vscode.commands.executeCommand('setContext', 'workspaceState.isConnected', true);
+  return;
 }

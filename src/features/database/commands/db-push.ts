@@ -4,15 +4,19 @@ import * as vscode from 'vscode';
 
 export async function dbPush() {
   const items: vscode.QuickPickItem[] = [
-    { label: 'Local', description: 'Pushes from the local database.' },
+    { label: 'Dry', description: 'Dry run migration.' },
+    { label: 'Local', description: 'Apply migration to local database.' },
     {
       label: 'Linked',
-      description: 'Pushes from the linked project. '
+      description: 'Apply migration to linked database.'
     }
   ];
   const result = await vscode.window.showQuickPick(items);
 
   let arg;
+  if (result?.label === 'Dry') {
+    arg = '--dry-run';
+  }
   if (result?.label === 'Local') {
     arg = '--local';
   }
