@@ -1,17 +1,17 @@
 {
-  "name": "vscode-supabase-cli",
-  "displayName": "Supabase CLI for Visual Studio Code (BETA)",
-  "description": "Integrate your local Supabase instance right into the editor.",
-  "version": "0.0.5",
+  "name": "vscode-supabase-extension",
+  "displayName": "Supabase",
+  "description": "Supabase Extension for VS Code and GitHub Copilot.",
+  "version": "0.0.6",
   "engines": {
     "vscode": "^1.90.0"
   },
   "main": "./dist/extension.js",
-  "publisher": "anasaraid",
+  "publisher": "Supabase",
   "icon": "icon.png",
   "repository": {
     "type": "git",
-    "url": "https://github.com/anas-araid/vscode-supabase-cli"
+    "url": "https://github.com/supabase-community/supabase-vscode-extension"
   },
   "keywords": [
     "supabase",
@@ -33,6 +33,7 @@
     "package": "npm run check-types && node esbuild.js --production"
   },
   "dependencies": {
+    "@scaleleap/pg-format": "^1.0.0",
     "await-to-js": "^3.0.0",
     "http": "^0.0.1-security",
     "lodash": "^4.17.21",

@@ -2,11 +2,12 @@ import { SupabaseApi } from '@/features/database/classes/supabase-api';
 import { TablesElement, TreeElement } from '@/features/database/types/index';
 import to from 'await-to-js';
 import * as vscode from 'vscode';
+import { format } from '@scaleleap/pg-format';
 
 export async function openTable(supabase: SupabaseApi, element: TreeElement) {
   const table = element.label;
   const type = element.contextValue === TablesElement.PRIVATE_CHILDREN ? 'private' : 'public';
-  const query = `select * from ${type}.${table} limit 10 offset 0`;
+  const query = format('select * from %I.%I limit 10 offset 0', type, table);
 
   const [err, res] = await to(supabase.executeQuery(query));
 

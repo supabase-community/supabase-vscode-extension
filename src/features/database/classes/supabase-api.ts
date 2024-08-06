@@ -2,6 +2,7 @@ import { Bucket, BucketItem, DatabaseFunction, Migration, Table, View } from '@/
 import { WorkspaceStorage, WorkspaceStorageKeys } from '@/utils/workspace-storage';
 import to from 'await-to-js';
 import axios from 'axios';
+import { format } from '@scaleleap/pg-format';
 import * as vscode from 'vscode';
 
 enum Ports {
@@ -36,6 +37,7 @@ export class SupabaseApi {
   }
 
   async getSchema() {
+    // TODO: allow to switch schema.
     const sql = `SELECT table_name, column_name, data_type, character_maximum_length, column_default, is_nullable
     FROM information_schema.columns
     where table_schema = 'public'`;
@@ -54,6 +56,17 @@ export class SupabaseApi {
     }
 
     return [];
+  }
+
+  async getTable(name: string) {
+    const sql = format(
+      `SELECT table_name, column_name, data_type, character_maximum_length, column_default, is_nullable FROM information_schema.columns where table_schema = 'public' and table_name= %L`,
+      name
+    );
+    const [err, res] = await to(this.executeQuery(sql));
+    console.log({ sql, err, res });
+    if (err) throw err;
+    return this.schemaToDDL(res.data);
   }
 
   async executeQuery(query: string) {
