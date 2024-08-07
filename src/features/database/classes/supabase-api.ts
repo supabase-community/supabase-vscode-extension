@@ -64,7 +64,6 @@ export class SupabaseApi {
       name
     );
     const [err, res] = await to(this.executeQuery(sql));
-    console.log({ sql, err, res });
     if (err) throw err;
     return this.schemaToDDL(res.data);
   }
