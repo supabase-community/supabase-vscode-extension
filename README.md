@@ -27,12 +27,12 @@ https://github.com/anas-araid/vscode-supabase-cli/assets/23257651/0b52af80-633d-
 
 ## Development
 
-- `yarn run install:all`
+- `npm run install:all`
   - install package dependencies for both the extension and react webview source code.
 - install [esbuild-problem-matchers](https://marketplace.visualstudio.com/items?itemName=connor4312.esbuild-problem-matchers) extension
 - `npx supabase start`
   - starts the [supabase local development stack](https://supabase.com/docs/reference/cli/supabase-start)
-- `yarn run watch`
+- `npm run watch`
   - compile vs code extension
 - press `F5`
   - to open a new window with the extension loaded
