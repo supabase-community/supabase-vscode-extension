@@ -19,7 +19,7 @@ export class DatabaseProvider implements vscode.TreeDataProvider<TreeElement> {
 
   constructor(context: vscode.ExtensionContext, private readonly supabaseApi: SupabaseApi) {
     this.context = context;
-    this.data = [database, queries, cli];
+    this.data = [database]; // TODO: Add `queries` and `cli` to the tree.
   }
   getChildren(element?: TreeElement | undefined): vscode.ProviderResult<TreeElement[]> {
     if (element === undefined) {
