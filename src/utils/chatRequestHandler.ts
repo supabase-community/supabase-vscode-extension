@@ -16,7 +16,7 @@ const MODEL_SELECTOR: vscode.LanguageModelChatSelector = { vendor: 'copilot', fa
 export const createChatRequestHandler = (supabase: SupabaseApi): vscode.ChatRequestHandler => {
   const handler: vscode.ChatRequestHandler = async (
     request: vscode.ChatRequest,
-    context: vscode.ChatContext,
+    _context: vscode.ChatContext,
     stream: vscode.ChatResponseStream,
     token: vscode.CancellationToken
   ): Promise<ICatChatResult> => {
@@ -39,7 +39,15 @@ export const createChatRequestHandler = (supabase: SupabaseApi): vscode.ChatRequ
           md.push('```');
           stream.markdown(md.join('\n'));
         } else {
-          stream.markdown(`Prompt ${prompt} not supported.`);
+          const table = await supabase.getTable(prompt);
+          if (table) {
+            stream.markdown('Here are details for `' + prompt + '`\n');
+            md.push(table);
+            md.push('```');
+            stream.markdown(md.join('\n'));
+          } else {
+            stream.markdown("Can't find the table `" + prompt + '` \n');
+          }
         }
       } catch (err) {
         handleError(err, stream);

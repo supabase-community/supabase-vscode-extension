@@ -56,7 +56,7 @@ export const cli: TreeElement = {
     {
       id: CliElements.DB_RESET,
       label: 'DB Reset',
-      contextValue: CliElements.DB_RESET,
+      contextValue: CliElements.DB_RESET, // TODO: ask for confirmation to avoid accidental resets.
       collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
       iconPath: new vscode.ThemeIcon('terminal-powershell')
     },
@@ -79,7 +79,7 @@ export const cli: TreeElement = {
 
 export const database: TreeElement = {
   id: DatabaseElement.LOCALHOST,
-  label: '127.0.0.1',
+  label: 'Database',
   collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
   iconPath: new vscode.ThemeIcon('database'),
   children: [
@@ -98,7 +98,7 @@ export const database: TreeElement = {
     },
     {
       id: DatabaseElement.MIGRATIONS,
-      label: 'Remote migrations',
+      label: 'Migrations History',
       contextValue: DatabaseElement.MIGRATIONS,
       collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
       iconPath: new vscode.ThemeIcon('arrow-swap')
@@ -121,7 +121,7 @@ export const database: TreeElement = {
     // },
     {
       id: DatabaseElement.BUCKETS,
-      label: 'Buckets',
+      label: 'Storage Buckets',
       contextValue: DatabaseElement.BUCKETS,
       collapsibleState: vscode.TreeItemCollapsibleState.Collapsed,
       iconPath: new vscode.ThemeIcon('files')
