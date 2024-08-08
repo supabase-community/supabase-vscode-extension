@@ -2,7 +2,7 @@
   "name": "vscode-supabase-extension",
   "displayName": "Supabase",
   "description": "Supabase Extension for VS Code and GitHub Copilot.",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "engines": {
     "vscode": "^1.90.0"
   },
@@ -67,14 +67,14 @@
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "vscode-supabase-cli",
-          "title": "Supabase CLI",
+          "id": "vscode-supabase-extension",
+          "title": "Supabase",
           "icon": "dist/assets/logo.svg"
         }
       ]
     },
     "views": {
-      "vscode-supabase-cli": [
+      "vscode-supabase-extension": [
         {
           "id": "connectSupabase",
           "name": "Connect ",
