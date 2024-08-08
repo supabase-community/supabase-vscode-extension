@@ -67,14 +67,14 @@
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "vscode-supabase-cli",
-          "title": "Supabase CLI",
+          "id": "vscode-supabase-extension",
+          "title": "Supabase",
           "icon": "dist/assets/logo.svg"
         }
       ]
     },
     "views": {
-      "vscode-supabase-cli": [
+      "vscode-supabase-extension": [
         {
           "id": "connectSupabase",
           "name": "Connect ",
