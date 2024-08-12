@@ -2,7 +2,7 @@
   "name": "vscode-supabase-extension",
   "displayName": "Supabase",
   "description": "Supabase Extension for VS Code and GitHub Copilot.",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "engines": {
     "vscode": "^1.90.0"
   },
@@ -13,9 +13,15 @@
     "type": "git",
     "url": "https://github.com/supabase-community/supabase-vscode-extension"
   },
+  "categories": [
+    "AI",
+    "Chat",
+    "Other"
+  ],
   "keywords": [
-    "supabase",
-    "supabase-cli"
+    "Supabase",
+    "Databases",
+    "Postgres"
   ],
   "scripts": {
     "install:all": "npm install && cd webview-ui && npm install",

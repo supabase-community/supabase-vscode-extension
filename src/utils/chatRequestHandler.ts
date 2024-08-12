@@ -11,7 +11,7 @@ interface ICatChatResult extends vscode.ChatResult {
   };
 }
 
-const MODEL_SELECTOR: vscode.LanguageModelChatSelector = { vendor: 'copilot', family: 'gpt-3.5-turbo' };
+const MODEL_SELECTOR: vscode.LanguageModelChatSelector = { vendor: 'copilot', family: 'gpt-4o' };
 
 export const createChatRequestHandler = (supabase: SupabaseApi): vscode.ChatRequestHandler => {
   const handler: vscode.ChatRequestHandler = async (

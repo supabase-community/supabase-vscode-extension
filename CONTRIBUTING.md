@@ -15,20 +15,8 @@
 ## Publishing
 
 - increment package.json version
-- npm run vscode:prepublish
-- npx vsce package
-- npx vsce publish
-
-## Contributing
-
-If you have any questions or requests or want to contribute, please write an issue or give me a PR freely.
-
-### To-do
-
-- Query feature: execute queries directly from vscode
-- Edge functions
-- Open bucket files
-
-## Bug report
-
-If you find a bug, please create a new [issue](https://github.com/anas-araid/vscode-supabase-cli/issues) on GitHub.
+- Add the details in the [Changelog](./CHANGELOG.md)
+- Run `npm run install:all`
+- Run `npm run vscode:prepublish`
+- Run `npx vsce package`
+- Run `npx vsce publish`

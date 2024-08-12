@@ -59,7 +59,7 @@ Inspect your database functions and their SQL definitions.
 
 ### List Storage Buckets
 
-List the storage buckets on your Supabase project.
+List the storage buckets in your Supabase project.
 
 ## Support and Community
 
