@@ -12,16 +12,18 @@ export class DatabaseFunctionManager {
   }
 
   getItems(): TreeElement[] {
-    return this.functions.flatMap((func) => {
-      const item = new TreeItem({
-        label: func.name,
-        id: String(func.id),
-        context: this.context,
-        contextValue: DatabaseElement.DB_FUNCTIONS_CHILDREN,
-        iconPath: new vscode.ThemeIcon('gist'),
-        isChildren: true
-      }) as TreeElement;
-      return item;
-    }) as TreeElement[];
+    return this.functions
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .flatMap((func) => {
+        const item = new TreeItem({
+          label: func.name,
+          id: String(func.id),
+          context: this.context,
+          contextValue: DatabaseElement.DB_FUNCTIONS_CHILDREN,
+          iconPath: new vscode.ThemeIcon('gist'),
+          isChildren: true
+        }) as TreeElement;
+        return item;
+      }) as TreeElement[];
   }
 }
