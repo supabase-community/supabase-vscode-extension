@@ -2,7 +2,7 @@
   "name": "vscode-supabase-extension",
   "displayName": "Supabase",
   "description": "Supabase Extension for VS Code and GitHub Copilot.",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "engines": {
     "vscode": "^1.90.0"
   },
