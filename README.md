@@ -21,6 +21,12 @@ Install the Supabase VS Code Extension by clicking <a href="https://marketplace.
 
 The Extension currently requires Supabase to be running locally. Follow the steps to [install](https://supabase.com/docs/guides/cli/getting-started) and [start](https://supabase.com/docs/guides/cli/getting-started#running-supabase-locally) the Supabase CLI.
 
+The recommended development setup is [documented here](https://supabase.com/docs/guides/cli/managing-environments). To get up and running, follow these steps:
+- Init your local project: `supabase init`
+- Link your cloud project to your local project: `supabase link`
+- Pull down the database from your cloud project: `supabase db pull`
+- Now your database is in sync and you can start it locally: `supabase db start`
+
 ### GitHub Copilot
 
 To use the Copilot Chatparticipant integration an active GitHub Copilot subscription is required. A [free trial](https://github.com/features/copilot) is available.
