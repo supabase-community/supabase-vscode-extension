@@ -53,7 +53,7 @@
     "@types/vscode": "^1.86.0",
     "@typescript-eslint/eslint-plugin": "^4.14.1",
     "@typescript-eslint/parser": "^4.14.1",
-    "axios": "^1.6.2",
+    "axios": "^1.7.4",
     "esbuild": "^0.19.11",
     "esbuild-plugin-copy": "^2.1.1",
     "eslint": "^7.19.0",
