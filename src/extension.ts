@@ -24,10 +24,20 @@ export function activate(context: vscode.ExtensionContext) {
     supabase
   });
 
-  //it's important to use an inline callback here due to scoping issues.
-  //setting the handler to pg.handle would not work as "this" would not
-  //be set right.
-  const participant = vscode.chat.createChatParticipant('supabase.clippy', createChatRequestHandler(supabase));
+  // Check if GitHub Copilot Chat is available before registering chat participant
+  const copilotChatExtension = vscode.extensions.getExtension('github.copilot-chat');
+  
+  if (copilotChatExtension) {
+    // Only register chat participant if Copilot Chat is available
+    try {
+      const participant = vscode.chat.createChatParticipant('supabase.clippy', createChatRequestHandler(supabase));
+      context.subscriptions.push(participant);
+    } catch (error) {
+      console.log('Supabase: Chat features unavailable - GitHub Copilot Chat may not be active', error);
+    }
+  } else {
+    console.log('Supabase: Chat features disabled - GitHub Copilot Chat extension not found');
+  }
 
-  context.subscriptions.push(participant, connectSupabaseView, databaseView);
+  context.subscriptions.push(connectSupabaseView, databaseView);
 }

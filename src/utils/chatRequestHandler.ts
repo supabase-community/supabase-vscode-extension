@@ -56,70 +56,89 @@ export const createChatRequestHandler = (supabase: SupabaseApi): vscode.ChatRequ
       return { metadata: { command: 'show' } };
     } else if (request.command === 'migration') {
       try {
-        const [model] = await vscode.lm.selectChatModels(MODEL_SELECTOR);
-        if (model) {
-          try {
-            // Create new migration file (execute supabase migration new copilot).
-            const migrationName = `copilot`; // TODO: generate from prompt.
-            const cmd = `${Commands.NEW_MIGRATION} ${migrationName}`;
-            executeCommand(cmd);
+        // Check if language models are available
+        let models;
+        try {
+          models = await vscode.lm.selectChatModels(MODEL_SELECTOR);
+        } catch (err) {
+          stream.markdown('⚠️ AI-powered migration generation requires an active GitHub Copilot subscription.\n\n' +
+            'You can still create migrations manually using:\n' +
+            '- The "Create new migration" button in the Database view\n' +
+            '- Running `supabase migration new` in the terminal');
+          return { metadata: { command: 'migration' } };
+        }
 
-            // Get schema context.
-            const schema = await supabase.getSchema();
-            // TODO: figure out how to modify the prompt to only generate valid SQL. Currently Copilot generates a markdown response.
-            const messages = [
-              vscode.LanguageModelChatMessage.User(
-                `You're a friendly PostgreSQL assistant called Supabase Clippy, helping with writing database migrations.`
-              ),
-              vscode.LanguageModelChatMessage.User(
-                `Please provide help with ${prompt}. The reference database schema for question is ${schema}. IMPORTANT: Be sure you only use the tables and columns from this schema in your answer!`
-              )
-            ];
-            const chatResponse = await model.sendRequest(messages, {}, token);
-            let responseText = '';
+        if (!models || models.length === 0) {
+          stream.markdown('⚠️ GitHub Copilot language models are not available.\n\n' +
+            'Please ensure you have:\n' +
+            '1. An active GitHub Copilot subscription\n' +
+            '2. Signed in to GitHub in VS Code\n\n' +
+            'You can still create migrations manually.');
+          return { metadata: { command: 'migration' } };
+        }
 
-            for await (const fragment of chatResponse.text) {
-              stream.markdown(fragment);
-              responseText += fragment;
-            }
+        const [model] = models;
+        try {
+          // Create new migration file (execute supabase migration new copilot).
+          const migrationName = `copilot`; // TODO: generate from prompt.
+          const cmd = `${Commands.NEW_MIGRATION} ${migrationName}`;
+          executeCommand(cmd);
 
-            // Open migration file in editor.
-            let filePath = await getFilePath();
-            while (!(await isFileEmpty(filePath))) {
-              await new Promise((resolve) => setTimeout(resolve, 500));
-              filePath = await getFilePath();
-            }
+          // Get schema context.
+          const schema = await supabase.getSchema();
+          // TODO: figure out how to modify the prompt to only generate valid SQL. Currently Copilot generates a markdown response.
+          const messages = [
+            vscode.LanguageModelChatMessage.User(
+              `You're a friendly PostgreSQL assistant called Supabase Clippy, helping with writing database migrations.`
+            ),
+            vscode.LanguageModelChatMessage.User(
+              `Please provide help with ${prompt}. The reference database schema for question is ${schema}. IMPORTANT: Be sure you only use the tables and columns from this schema in your answer!`
+            )
+          ];
+          const chatResponse = await model.sendRequest(messages, {}, token);
+          let responseText = '';
 
-            const openPath = vscode.Uri.file(filePath);
-            const doc = await vscode.workspace.openTextDocument(openPath);
-            await vscode.window.showTextDocument(doc);
-            const textEditor = vscode.window.activeTextEditor;
-
-            // Extract SQL from markdown and write to migration file.
-            const sql = extractCode(responseText);
-
-            if (textEditor) {
-              for await (const statement of sql) {
-                await textEditor.edit((edit) => {
-                  const lastLine = textEditor.document.lineAt(textEditor.document.lineCount - 1);
-                  const position = new vscode.Position(lastLine.lineNumber, lastLine.text.length);
-                  edit.insert(position, statement);
-                });
-              }
-              await textEditor.document.save();
-            }
-
-            // Render button to apply migration.
-            stream.markdown('\n\nMake sure to review the migration file before applying it!');
-            stream.button({
-              command: 'databaseProvider.db_push',
-              title: vscode.l10n.t('Apply migration.')
-            });
-          } catch (err) {
-            stream.markdown(
-              "🤔 I can't find the schema for the database. Please check that `supabase start` is running."
-            );
+          for await (const fragment of chatResponse.text) {
+            stream.markdown(fragment);
+            responseText += fragment;
           }
+
+          // Open migration file in editor.
+          let filePath = await getFilePath();
+          while (!(await isFileEmpty(filePath))) {
+            await new Promise((resolve) => setTimeout(resolve, 500));
+            filePath = await getFilePath();
+          }
+
+          const openPath = vscode.Uri.file(filePath);
+          const doc = await vscode.workspace.openTextDocument(openPath);
+          await vscode.window.showTextDocument(doc);
+          const textEditor = vscode.window.activeTextEditor;
+
+          // Extract SQL from markdown and write to migration file.
+          const sql = extractCode(responseText);
+
+          if (textEditor) {
+            for await (const statement of sql) {
+              await textEditor.edit((edit) => {
+                const lastLine = textEditor.document.lineAt(textEditor.document.lineCount - 1);
+                const position = new vscode.Position(lastLine.lineNumber, lastLine.text.length);
+                edit.insert(position, statement);
+              });
+            }
+            await textEditor.document.save();
+          }
+
+          // Render button to apply migration.
+          stream.markdown('\n\nMake sure to review the migration file before applying it!');
+          stream.button({
+            command: 'databaseProvider.db_push',
+            title: vscode.l10n.t('Apply migration.')
+          });
+        } catch (err) {
+          stream.markdown(
+            "🤔 I can't find the schema for the database. Please check that `supabase start` is running."
+          );
         }
       } catch (err) {
         handleError(err, stream);
@@ -128,29 +147,49 @@ export const createChatRequestHandler = (supabase: SupabaseApi): vscode.ChatRequ
       return { metadata: { command: 'migration' } };
     } else {
       try {
-        const [model] = await vscode.lm.selectChatModels(MODEL_SELECTOR);
-        if (model) {
-          try {
-            const schema = await supabase.getSchema();
+        // Check if language models are available
+        let models;
+        try {
+          models = await vscode.lm.selectChatModels(MODEL_SELECTOR);
+        } catch (err) {
+          stream.markdown('⚠️ AI features require an active GitHub Copilot subscription.\n\n' +
+            'However, you can still use all database management features:\n' +
+            '- View and explore tables\n' +
+            '- Create migrations manually\n' +
+            '- Run database commands\n' +
+            '- Generate TypeScript types');
+          return { metadata: { command: '' } };
+        }
 
-            const messages = [
-              vscode.LanguageModelChatMessage.User(
-                `You're a friendly PostgreSQL assistant called Supabase Clippy, helping with writing SQL.`
-              ),
-              vscode.LanguageModelChatMessage.User(
-                `Please provide help with ${prompt}. The reference database schema for this question is ${schema}. IMPORTANT: Be sure you only use the tables and columns from this schema in your answer.`
-              )
-            ];
+        if (!models || models.length === 0) {
+          stream.markdown('⚠️ GitHub Copilot language models are not available.\n\n' +
+            'Please ensure you have:\n' +
+            '1. An active GitHub Copilot subscription\n' +
+            '2. Signed in to GitHub in VS Code');
+          return { metadata: { command: '' } };
+        }
 
-            const chatResponse = await model.sendRequest(messages, {}, token);
-            for await (const fragment of chatResponse.text) {
-              stream.markdown(fragment);
-            }
-          } catch (err) {
-            stream.markdown(
-              "🤔 I can't find the schema for the database. Please check that `supabase start` is running."
-            );
+        const [model] = models;
+        try {
+          const schema = await supabase.getSchema();
+
+          const messages = [
+            vscode.LanguageModelChatMessage.User(
+              `You're a friendly PostgreSQL assistant called Supabase Clippy, helping with writing SQL.`
+            ),
+            vscode.LanguageModelChatMessage.User(
+              `Please provide help with ${prompt}. The reference database schema for this question is ${schema}. IMPORTANT: Be sure you only use the tables and columns from this schema in your answer.`
+            )
+          ];
+
+          const chatResponse = await model.sendRequest(messages, {}, token);
+          for await (const fragment of chatResponse.text) {
+            stream.markdown(fragment);
           }
+        } catch (err) {
+          stream.markdown(
+            "🤔 I can't find the schema for the database. Please check that `supabase start` is running."
+          );
         }
       } catch (err) {
         handleError(err, stream);

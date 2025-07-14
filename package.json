@@ -63,9 +63,6 @@
     "vscode-test": "^1.5.0"
   },
   "activationEvents": [],
-  "extensionDependencies": [
-    "github.copilot-chat"
-  ],
   "contributes": {
     "viewsContainers": {
       "activitybar": [
