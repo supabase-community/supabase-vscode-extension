@@ -2,7 +2,7 @@
   "name": "vscode-supabase-extension",
   "displayName": "Supabase",
   "description": "Supabase Extension for VS Code and GitHub Copilot.",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "engines": {
     "vscode": "^1.90.0"
   },
@@ -63,9 +63,7 @@
     "vscode-test": "^1.5.0"
   },
   "activationEvents": [],
-  "extensionDependencies": [
-    "github.copilot-chat"
-  ],
+  "extensionDependencies": [],
   "contributes": {
     "viewsContainers": {
       "activitybar": [
@@ -99,6 +97,7 @@
         "id": "supabase.clippy",
         "name": "supabase",
         "description": "Ask Supabase Clippy about your database.",
+        "when": "extension.github.copilot-chat",
         "commands": [
           {
             "name": "show",
