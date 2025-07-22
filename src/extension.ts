@@ -24,20 +24,20 @@ export function activate(context: vscode.ExtensionContext) {
     supabase
   });
 
-  // Check if GitHub Copilot Chat is available before registering chat participant
-  const copilotChatExtension = vscode.extensions.getExtension('github.copilot-chat');
-  
-  if (copilotChatExtension) {
-    // Only register chat participant if Copilot Chat is available
-    try {
-      const participant = vscode.chat.createChatParticipant('supabase.clippy', createChatRequestHandler(supabase));
-      context.subscriptions.push(participant);
-    } catch (error) {
-      console.log('Supabase: Chat features unavailable - GitHub Copilot Chat may not be active', error);
+  // Register chat participant only if the API is available (VS Code with Copilot)
+  let participant: vscode.ChatParticipant | undefined;
+  try {
+    if (vscode.chat && vscode.chat.createChatParticipant) {
+      participant = vscode.chat.createChatParticipant('supabase.clippy', createChatRequestHandler(supabase));
     }
-  } else {
-    console.log('Supabase: Chat features disabled - GitHub Copilot Chat extension not found');
+  } catch (error) {
+    console.log('Chat participant not available, continuing without chat features');
   }
 
-  context.subscriptions.push(connectSupabaseView, databaseView);
+  // Add subscriptions conditionally
+  const subscriptions: vscode.Disposable[] = [connectSupabaseView, databaseView];
+  if (participant) {
+    subscriptions.push(participant);
+  }
+  context.subscriptions.push(...subscriptions);
 }
