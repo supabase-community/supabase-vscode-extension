@@ -24,20 +24,6 @@ export function activate(context: vscode.ExtensionContext) {
     supabase
   });
 
-  // Register chat participant only if the API is available (VS Code with Copilot)
-  let participant: vscode.ChatParticipant | undefined;
-  try {
-    if (vscode.chat && vscode.chat.createChatParticipant) {
-      participant = vscode.chat.createChatParticipant('supabase.clippy', createChatRequestHandler(supabase));
-    }
-  } catch (error) {
-    console.log('Chat participant not available, continuing without chat features');
-  }
-
-  // Add subscriptions conditionally
-  const subscriptions: vscode.Disposable[] = [connectSupabaseView, databaseView];
-  if (participant) {
-    subscriptions.push(participant);
-  }
-  context.subscriptions.push(...subscriptions);
+  const participant = vscode.chat.createChatParticipant('supabase.clippy', createChatRequestHandler(supabase));
+  context.subscriptions.push(participant, connectSupabaseView, databaseView);
 }

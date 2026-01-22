@@ -1,5 +1,9 @@
 # Change Log
 
+## v0.0.12 - 2025-12-15
+
+- fix: chat participant with Supabase enabled
+
 ## v0.0.11 - 2025-07-22
 
 - fix: Make chat participant registration conditional for VS Code alternatives compatibility
@@ -16,4 +20,4 @@
 
 - chore(chat): Update `chatRequestHandler` to use `gpt-4o`.
 - chore(docs): Add categories and keywords.
-- chore(docs): Add Changelog.
+- chore(docs): Add Changelog
