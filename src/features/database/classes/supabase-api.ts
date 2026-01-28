@@ -130,7 +130,7 @@ export class SupabaseApi {
   }
 
   async getBucketList(item: string): Promise<BucketItem[]> {
-    const endpoint = `${this.baseUrl}${Endpoint.BUCKETS}/${item}/objects/list`;
+    const endpoint = `${this.baseUrl}:${Ports.PG_META}${Endpoint.BUCKETS}/${item}/objects/list`;
     const [err, res] = await to(axios.post(endpoint));
 
     if (err) {

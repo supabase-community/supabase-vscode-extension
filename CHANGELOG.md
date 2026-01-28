@@ -1,5 +1,9 @@
 # Change Log
 
+## v0.0.13 - 2026-01-28
+
+- fix: Storage buckets and objects listing 
+
 ## v0.0.12 - 2025-12-15
 
 - fix: chat participant with Supabase enabled
