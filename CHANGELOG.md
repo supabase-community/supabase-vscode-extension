@@ -1,5 +1,9 @@
 # Change Log
 
+## v0.0.14 - 2026-08-13
+
+- fix: Chat is now responding to questions based on the model
+
 ## v0.0.13 - 2026-01-28
 
 - fix: Storage buckets and objects listing 
