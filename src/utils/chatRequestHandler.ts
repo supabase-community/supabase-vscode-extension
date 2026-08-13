@@ -1,9 +1,9 @@
 import { Commands } from '@/constants';
-import { executeCommand } from '@/utils/exec-command';
 import { SupabaseApi } from '@/features/database/classes/supabase-api';
-import * as vscode from 'vscode';
-import * as path from 'path';
+import { executeCommand } from '@/utils/exec-command';
 import { extractCode } from '@/utils/formatSql';
+import * as path from 'path';
+import * as vscode from 'vscode';
 
 interface ICatChatResult extends vscode.ChatResult {
   metadata: {
@@ -11,7 +11,24 @@ interface ICatChatResult extends vscode.ChatResult {
   };
 }
 
-const MODEL_SELECTOR: vscode.LanguageModelChatSelector = { vendor: 'copilot', family: 'gpt-4o' };
+const NO_MODEL_MESSAGE = "I can't reach a language model. Make sure GitHub Copilot is installed and you are signed in.";
+
+// Get the model that is being used by the user.
+async function resolveChatModel(request: vscode.ChatRequest): Promise<vscode.LanguageModelChat | undefined> {
+  const selected = (request as { model?: vscode.LanguageModelChat }).model;
+  if (selected) {
+    return selected;
+  }
+
+  for (const selector of [{ vendor: 'copilot' }, {}] as vscode.LanguageModelChatSelector[]) {
+    const [model] = await vscode.lm.selectChatModels(selector);
+    if (model) {
+      return model;
+    }
+  }
+
+  return undefined;
+}
 
 export const createChatRequestHandler = (supabase: SupabaseApi): vscode.ChatRequestHandler => {
   const handler: vscode.ChatRequestHandler = async (
@@ -56,8 +73,10 @@ export const createChatRequestHandler = (supabase: SupabaseApi): vscode.ChatRequ
       return { metadata: { command: 'show' } };
     } else if (request.command === 'migration') {
       try {
-        const [model] = await vscode.lm.selectChatModels(MODEL_SELECTOR);
-        if (model) {
+        const model = await resolveChatModel(request);
+        if (!model) {
+          stream.markdown(NO_MODEL_MESSAGE);
+        } else {
           try {
             // Create new migration file (execute supabase migration new copilot).
             const migrationName = `copilot`; // TODO: generate from prompt.
@@ -128,8 +147,10 @@ export const createChatRequestHandler = (supabase: SupabaseApi): vscode.ChatRequ
       return { metadata: { command: 'migration' } };
     } else {
       try {
-        const [model] = await vscode.lm.selectChatModels(MODEL_SELECTOR);
-        if (model) {
+        const model = await resolveChatModel(request);
+        if (!model) {
+          stream.markdown(NO_MODEL_MESSAGE);
+        } else {
           try {
             const schema = await supabase.getSchema();
 
